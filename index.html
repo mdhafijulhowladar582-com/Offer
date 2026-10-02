@@ -73,7 +73,7 @@ summary::-webkit-details-marker{display:none}
 <div class="wrap">
   <div class="top"><div class="brand">HafijulNovaLabs</div><div id="who" class="who"></div></div>
   <div id="app"><div class="card">লোড হচ্ছে…</div></div>
-  <p class="mut" style="text-align:center;margin-top:18px">ব্যক্তিগত উদ্যোগ — কোনো কোম্পানি বা প্রতিষ্ঠানের সঙ্গে আনুষ্ঠানিক সম্পর্ক নেই।</p>
+  <p class="mut" style="text-align:center;margin-top:18px">ব্যক্তিগত উদ্যোগ — কোনো কোম্পানি বা প্রতিষ্ঠানের সঙ্গে আনুষ্ঠানিক সম্পর্ক নেই।<br><a href="#admin" id="admlink">অ্যাডমিন</a></p>
 </div>
 
 <script type="module">
@@ -124,6 +124,7 @@ function bindLogin(){
   $('#cplink')?.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.href.split('#')[0]);toast('লিংক কপি হয়েছে')}catch{toast('কপি হয়নি')}});
 }
 function renderWho(){
+  if(!user){$('#who').innerHTML='<button class="btn sm" id="hlogin">লগইন</button>';$('#hlogin').addEventListener('click',login);return}
   $('#who').innerHTML = user?`${user.photoURL?`<img src="${esc(user.photoURL)}" alt="">`:''}<span>${esc(user.displayName||user.email)}</span>${isAdmin&&location.hash!=='#admin'?'<a href="#admin">অ্যাডমিন</a>':''}${location.hash==='#admin'?'<a href="#">হোম</a>':''}<button class="btn ghost sm" id="out">বের হন</button>`:'';
   $('#out')?.addEventListener('click',()=>signOut(auth));
 }
@@ -150,7 +151,7 @@ async function renderPublic(){
   const app=$('#app');
   app.innerHTML='<div class="card">লোড হচ্ছে…</div>';
   try{offer=await loadOpenOffer()}catch(e){app.innerHTML='<div class="msg bad">ডেটা আনা যায়নি। Firestore চালু ও রুলস পাবলিশ করা আছে কি না দেখুন।</div>';return}
-  if(!offer){app.innerHTML='<div class="card"><h2>এই মুহূর্তে কোনো অফার চালু নেই</h2><p class="mut">নতুন অফার এলে ফেসবুক পেজে জানানো হবে।</p></div>';return}
+  if(!offer){app.innerHTML='<div class="card"><h2>এই মুহূর্তে কোনো অফার চালু নেই</h2><p class="mut">নতুন অফার এলে ফেসবুক পেজে জানানো হবে।</p></div>'+(user?'':'<div class="card"><p class="mut" style="margin-bottom:10px">আগে আবেদন করে থাকলে লগইন করে অবস্থা দেখুন।</p>'+loginBlock()+'</div>');bindLogin();return}
   let html=ticket(offer);
   if(!user){app.innerHTML=html+`<div class="card"><h2>আবেদন করতে লগইন করুন</h2><p class="mut" style="margin-bottom:12px">আপনার নাম ও Gmail আবেদনের সঙ্গে জমা হবে। ফলাফল এই Gmail-এ জানানো হবে।</p>${loginBlock()}</div>`;bindLogin();return}
   const ref=doc(db,'offers',offer.id,'applications',user.uid);
@@ -336,8 +337,8 @@ function paneOffer(o){
     const data={title:v('t'),description:v('d'),winnersCount:+v('n'),rulesUrl:v('ru'),applyEnd:a,drawDate:b,detailsEnd:c,updatedAt:serverTimestamp()};
     try{
       if(o.id)await updateDoc(doc(db,'offers',o.id),data);
-      else{const r=await addDoc(collection(db,'offers'),{...data,status:'draft',drawn:false,createdAt:serverTimestamp()});adm.cur=r.id}
-      toast('সেভ হয়েছে');await loadOffers();drawAdmin();
+      else{const r=await addDoc(collection(db,'offers'),{...data,status:'draft',drawn:false,createdAt:serverTimestamp()});adm.cur=r.id;toast('খসড়া সেভ হয়েছে — এবার নিচের "চালু করুন" বাটন চাপুন')}
+      if(o.id)toast('সেভ হয়েছে');await loadOffers();drawAdmin();
     }catch(x){toast('সেভ হয়নি: '+(x.code||x.message))}
   });
   $('#open')?.addEventListener('click',async()=>{
