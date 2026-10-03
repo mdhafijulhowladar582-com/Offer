@@ -3,78 +3,130 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a3a40">
 <title>ফ্রি অ্যান্ড্রয়েড অ্যাপ অফার — HafijulNovaLabs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eef1f8;--card:#fff;--ink:#14213d;--mut:#5b6785;--line:#d9dfee;--acc:#2f5bea;--acc-d:#2447c0;--gold:#ffb703;--ok:#1a936f;--bad:#d64550;--r:14px}
+:root{--paper:#fff;--wash:#eef4f4;--ink:#0e1f24;--mut:#52666b;--line:#cfdcdc;--bar:#0a3a40;--acc:#0b6b7a;--acc-d:#085463;--gold:#f0a500;--ok:#1b7f55;--bad:#bf3b45}
 *{box-sizing:border-box;margin:0}
 html{-webkit-text-size-adjust:100%}
-body{font-family:'Hind Siliguri',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px;padding-bottom:60px}
+body{font-family:'Anek Bangla','Hind Siliguri',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;font-size:16.5px}
 a{color:var(--acc)}
-.wrap{max-width:720px;margin:0 auto;padding:16px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 0 14px}
-.brand{font-weight:700;font-size:15px;color:var(--ink)}
-.who{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--mut)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+
+/* top bar */
+.bar{background:var(--bar);color:#fff}
+.bar :focus-visible{outline-color:#fff}
+.bar-in{max-width:760px;margin:0 auto;padding:10px 18px;min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;color:#fff;text-decoration:none}
+.brand svg{width:26px;height:26px;fill:var(--gold);flex:none}
+.who{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px 10px;font-size:14px;color:#cfe3e5}
 .who img{width:30px;height:30px;border-radius:50%}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:600;cursor:pointer;background:var(--acc);color:#fff;min-height:44px}
+.who span{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who a{color:#fff}
+
+.wrap{max-width:760px;margin:0 auto;padding:24px 18px 40px}
+.foot{border-top:1px solid var(--line);background:var(--wash)}
+.foot .wrap{padding:18px;text-align:center}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:4px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer;background:var(--acc);color:#fff;min-height:44px}
 .btn:hover{background:var(--acc-d)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn.ghost:hover{background:#e6eaf5}
-.btn.gold{background:var(--gold);color:#3b2a00}
-.btn.sm{padding:6px 12px;min-height:34px;font-size:14px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid #9db3b5}
+.btn.ghost:hover{background:var(--wash)}
+.btn.gold{background:var(--gold);color:#2b1d00}
+.btn.gold:hover{background:#ffb81f}
+.btn.sm{padding:6px 12px;min-height:34px;font-size:14.5px}
 .btn.bad{background:var(--bad)}
-:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.card{background:var(--card);border-radius:var(--r);padding:20px;margin-bottom:14px;border:1px solid var(--line)}
-/* ticket — the one memorable element */
-.ticket{position:relative;background:var(--ink);color:#fff;border-radius:var(--r);padding:26px 22px 22px;margin-bottom:14px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;
--webkit-mask:radial-gradient(circle 11px at 0 62%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 11px at 100% 62%,#0000 98%,#000) right/51% 100% no-repeat;mask:radial-gradient(circle 11px at 0 62%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 11px at 100% 62%,#0000 98%,#000) right/51% 100% no-repeat}
-.ticket h1{font-size:25px;line-height:1.3;font-weight:700}
-.ticket p{color:#c9d3ee;font-size:15px;margin-top:6px}
-.ticket .n{text-align:center;border-left:2px dashed #ffffff44;padding-left:16px}
-.ticket .n b{display:block;font-size:54px;line-height:1;color:var(--gold)}
-.ticket .n span{font-size:14px;color:#c9d3ee}
-.dates{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:14px;padding-top:14px;border-top:1px dashed #ffffff33;grid-column:1/-1}
-.dates div{font-size:13px;color:#c9d3ee}.dates b{display:block;color:#fff;font-size:15px}
-h2{font-size:19px;margin-bottom:12px}
-h3{font-size:16px;margin:18px 0 8px;color:var(--acc-d)}
-label{display:block;font-weight:600;margin:14px 0 4px;font-size:15px}
+.bar .btn{background:var(--gold);color:#2b1d00}
+.bar .btn:hover{background:#ffb81f}
+.bar .btn.ghost{background:transparent;color:#fff;border:1px solid #ffffff66}
+.bar .btn.ghost:hover{background:#ffffff1f}
+
+/* package-style offer header */
+.pkg{display:flex;gap:16px;align-items:center;padding:4px 0 20px}
+.pkg-icon{flex:none;width:72px;height:72px;border-radius:14px;background:var(--bar);display:grid;place-items:center}
+.pkg-icon svg{width:40px;height:40px;fill:var(--gold)}
+.pkg h1{font-size:27px;line-height:1.35;font-weight:700}
+.pkg .sub{color:var(--mut);margin-top:2px}
+.infobox{background:var(--wash);border:1px solid var(--line);border-radius:4px;padding:14px 16px}
+.infobox b{display:block}
+.infobox span{color:var(--mut);font-size:15.5px}
+.blk{border-top:1px solid var(--line);margin-top:24px;padding-top:20px}
+.stages{list-style:none;padding:0;margin:0}
+.stages li{display:grid;grid-template-columns:22px 1fr auto;gap:0 12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.stages li:last-child{border-bottom:0}
+.stages li::before{content:'';width:14px;height:14px;border-radius:50%;border:2px solid #9fb4b6;background:#fff;margin-top:7px}
+.stages li.on::before{border-color:var(--gold);background:var(--gold);box-shadow:0 0 0 4px #f0a50033}
+.stages li.done::before{border-color:var(--acc);background:var(--acc)}
+.stages b{display:block;line-height:1.5}
+.stages li div span{color:var(--mut);font-size:15px}
+.notes{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.notes li{display:flex;gap:12px;align-items:flex-start}
+.ico{flex:none;width:24px;height:24px;margin-top:3px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;background:#fff3d6;color:#7a5200;border:1px solid #e3b34a}
+
+/* content blocks (flat sections, not boxed cards) */
+.card{padding:22px 0;border-top:1px solid var(--line)}
+#app>.card:first-child{border-top:0;padding-top:4px}
+h2{font-size:20px;line-height:1.4;margin-bottom:12px}
+h3{font-size:16px;margin:28px 0 2px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+label{display:block;font-weight:600;margin:16px 0 4px;font-size:15.5px}
 label small{font-weight:400;color:var(--mut)}
-input[type=text],input[type=url],input[type=tel],input[type=number],input[type=datetime-local],select,textarea{width:100%;font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfcff;color:var(--ink)}
+input[type=text],input[type=url],input[type=tel],input[type=number],input[type=datetime-local],select,textarea{width:100%;font:inherit;padding:11px 12px;border:1px solid #b4c6c8;border-radius:4px;background:#fff;color:var(--ink)}
 textarea{min-height:96px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);border-color:var(--acc)}
 .cnt{font-size:12.5px;color:var(--mut);text-align:right}.cnt.ok{color:var(--ok)}
 .chk{display:flex;gap:10px;align-items:flex-start;margin:12px 0;font-weight:400}
-.chk input{width:22px;height:22px;margin-top:3px;flex:none}
-.msg{padding:12px 14px;border-radius:10px;margin:10px 0;font-size:15px}
-.msg.ok{background:#e4f6ef;color:#0f5f47}.msg.bad{background:#fde8ea;color:#8e2430}.msg.warn{background:#fff4d6;color:#6b4b00}.msg.info{background:#e5ecff;color:#1c3a99}
-.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:13px;font-weight:600;background:#e5ecff;color:#1c3a99}
-.pill.g{background:#fff1c2;color:#6b4b00}.pill.ok{background:#e4f6ef;color:#0f5f47}.pill.x{background:#eceff6;color:var(--mut)}
+.chk input{width:22px;height:22px;margin-top:4px;flex:none;accent-color:var(--acc)}
+.msg{padding:12px 14px;border-radius:4px;margin:12px 0;font-size:15.5px;border-left:4px solid}
+.msg.ok{background:#e6f5ee;color:#0f5f47;border-color:var(--ok)}
+.msg.bad{background:#fcebed;color:#8e2430;border-color:var(--bad)}
+.msg.warn{background:#fff5da;color:#6b4b00;border-color:var(--gold)}
+.msg.info{background:var(--wash);color:#0a4f5a;border-color:var(--acc)}
+.pill{display:inline-block;padding:1px 10px;border-radius:99px;font-size:13px;font-weight:600;line-height:1.6;background:#fff;color:#0a4f5a;border:1px solid #8fc0c7;white-space:nowrap}
+.pill.g{background:#fff5da;color:#6b4b00;border-color:#e3b34a}
+.pill.ok{background:#e6f5ee;color:#0f5f47;border-color:#8cc9ae}
+.pill.x{background:var(--wash);color:var(--mut);border-color:var(--line)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .row>*{flex:0 0 auto}.grow{flex:1 1 140px!important}
-.tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto}
-.tabs button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 16px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
-.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-details{border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#fff}
-summary{padding:12px 14px;cursor:pointer;list-style:none;display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+
+/* admin */
+.tabs{display:flex;gap:2px;margin-bottom:18px;overflow-x:auto;border-bottom:1px solid var(--line)}
+.tabs button{border:0;border-bottom:3px solid transparent;background:transparent;color:var(--mut);padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--gold)}
+#list{border-top:1px solid var(--line)}
+details{border-bottom:1px solid var(--line)}
+summary{padding:12px 6px;cursor:pointer;list-style:none;display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+summary:hover{background:var(--wash)}
 summary::-webkit-details-marker{display:none}
-.det{padding:4px 14px 14px;border-top:1px solid var(--line);font-size:15px;word-break:break-word}
-.det dt{font-weight:600;margin-top:10px;color:var(--mut);font-size:13.5px}.det dd{margin:0;white-space:pre-wrap}
-.sc{display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:10px;padding:10px;border:1px dashed var(--line);border-radius:10px}
-.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:10px;z-index:9;max-width:90vw;font-size:15px}
-.mut{color:var(--mut);font-size:14px}
-@media(max-width:480px){.ticket{grid-template-columns:1fr}.ticket .n{border-left:0;padding-left:0;text-align:left;display:flex;gap:10px;align-items:baseline}.ticket .n b{font-size:44px}}
+.det{padding:4px 6px 16px;font-size:15.5px;word-break:break-word}
+.det dt{font-weight:600;margin-top:10px;color:var(--mut);font-size:14px}.det dd{margin:0;white-space:pre-wrap}
+.sc{display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:10px;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--wash)}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--bar);color:#fff;padding:11px 18px;border-radius:4px;z-index:9;max-width:90vw;font-size:15.5px}
+.mut{color:var(--mut);font-size:14.5px}
+@media(max-width:480px){
+  .pkg{gap:12px}.pkg-icon{width:56px;height:56px;border-radius:12px}.pkg-icon svg{width:30px;height:30px}
+  .pkg h1{font-size:23px}
+  .stages li{grid-template-columns:20px 1fr auto}
+}
 @media(prefers-reduced-motion:no-preference){.toast{animation:up .2s ease-out}@keyframes up{from{opacity:0;transform:translate(-50%,8px)}}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="top"><div class="brand">HafijulNovaLabs</div><div id="who" class="who"></div></div>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.3 7.7L22 12l-7.7 2.3L12 22l-2.3-7.7L2 12l7.7-2.3z"/></svg><span>HafijulNovaLabs</span></a>
+  <div id="who" class="who"></div>
+</div></header>
+<main class="wrap">
   <div id="app"><div class="card">লোড হচ্ছে…</div></div>
-  <p class="mut" style="text-align:center;margin-top:18px">ব্যক্তিগত উদ্যোগ — কোনো কোম্পানি বা প্রতিষ্ঠানের সঙ্গে আনুষ্ঠানিক সম্পর্ক নেই।<br><a href="#admin" id="admlink">অ্যাডমিন</a></p>
-</div>
+</main>
+<footer class="foot"><div class="wrap">
+  <p class="mut">ব্যক্তিগত উদ্যোগ — কোনো কোম্পানি বা প্রতিষ্ঠানের সঙ্গে আনুষ্ঠানিক সম্পর্ক নেই।<br><a href="#admin" id="admlink">অ্যাডমিন</a></p>
+</div></footer>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -142,10 +194,25 @@ async function loadOpenOffer(){
   const s=await getDocs(query(collection(db,'offers'),where('status','==','open'),limit(1)));
   return s.empty?null:{id:s.docs[0].id,...s.docs[0].data()};
 }
+const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.3 7.7L22 12l-7.7 2.3L12 22l-2.3-7.7L2 12l7.7-2.3z"/></svg>';
 function ticket(o){
-  return `<div class="ticket"><div><h1>${esc(o.title)}</h1><p>${esc(o.description||'')}</p></div>
-  <div class="n"><b>${(+o.winnersCount||0).toLocaleString('bn-BD')}</b><span>জন নির্বাচিত হবে</span></div>
-  <div class="dates"><div>আবেদন শেষ<b>${fmt(o.applyEnd)}</b></div><div>বাছাই<b>${fmt(o.drawDate)}</b></div><div>বিজয়ীর তথ্য জমা শেষ<b>${fmt(o.detailsEnd)}</b></div></div></div>`;
+  const now=Date.now();
+  const s1=now<=o.applyEnd?['on','চলছে']:['done','শেষ'];
+  const s2=o.drawn?['done','সম্পন্ন']:now>=o.drawDate?['on','চলছে']:['next','আসছে'];
+  const s3=now>o.detailsEnd?['done','শেষ']:o.drawn?['on','চলছে']:['next','আসছে'];
+  const tag={on:'pill g',done:'pill x',next:'pill'};
+  const row=(s,t,d)=>`<li class="${s[0]}"><div><b>${t}</b><span>${d}</span></div><span class="${tag[s[0]]}">${s[1]}</span></li>`;
+  const n=(+o.winnersCount||0).toLocaleString('bn-BD');
+  return `<div class="pkg"><div class="pkg-icon">${STAR}</div><div><h1>${esc(o.title)}</h1><p class="sub">${esc(o.description||'')}</p></div></div>
+  <div class="infobox"><b>র‍্যান্ডম বাছাইয়ে ${n} জন নির্বাচিত হবেন।</b><span>আবেদন শেষ হলে একবারই বাছাই চলবে, ফলাফল আর বদলানো যাবে না।</span></div>
+  <section class="blk"><h2>সময়সূচি</h2><ol class="stages">${row(s1,'আবেদন','শেষ সময়: '+fmt(o.applyEnd))}${row(s2,'র‍্যান্ডম বাছাই',fmt(o.drawDate))}${row(s3,'বিজয়ীর তথ্য জমা','শেষ সময়: '+fmt(o.detailsEnd))}</ol></section>
+  ${user?'':`<section class="blk"><h2>আবেদনের আগে জেনে নিন</h2><ul class="notes">
+    <li><span class="ico" aria-hidden="true">!</span><span>গেম, পেমেন্ট/ব্যাংকিং বা বেআইনি ধরনের অ্যাপ চাওয়া যাবে না।</span></li>
+    <li><span class="ico" aria-hidden="true">!</span><span>আবেদন একবার জমা দিলে আর এডিট করা যাবে না।</span></li>
+    <li><span class="ico" aria-hidden="true">i</span><span>ফলাফল আপনার লগইন করা Gmail-এ জানানো হবে।</span></li>
+    ${o.rulesUrl?`<li><span class="ico" aria-hidden="true">i</span><span><a href="${esc(o.rulesUrl)}" target="_blank" rel="noopener">পুরো নিয়মাবলি পড়ুন</a></span></li>`:''}
+  </ul></section>`}
+  <div style="height:8px"></div>`;
 }
 async function renderPublic(){
   const app=$('#app');
