@@ -11,13 +11,13 @@
 <style>
 :root{--ink:#15163a;--canvas:#eeedfc;--mut:#5d5a8a;--violet:#5040f0;--orange:#ff6b2c;--orange-d:#f25a1a;--tint:#e3e0ff;--line:#d4d1f3;--ok:#0e5a3d;--bad:#d92d20}
 *{box-sizing:border-box;margin:0}
-html{-webkit-text-size-adjust:100%}
-body{background:var(--canvas);color:var(--ink);font-family:'Anek Bangla','Hind Siliguri',system-ui,sans-serif;font-size:16.5px;line-height:1.7}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--canvas);color:var(--ink);font-family:'Anek Bangla','Hind Siliguri',system-ui,sans-serif;font-size:16.5px;line-height:1.7;font-variant-numeric:tabular-nums}
 a{color:var(--violet);font-weight:600;text-underline-offset:3px}
 :focus-visible{outline:3px solid var(--violet);outline-offset:2px}
 
 /* top bar */
-.bar{position:sticky;top:0;z-index:4;background:var(--canvas)}
+.bar{position:sticky;top:0;z-index:4;background:#eeedfce6;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .bar-in{max-width:760px;margin:0 auto;padding:10px 16px;min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:800;font-size:17px}
 .brand svg{width:34px;height:34px;flex:none}
@@ -26,10 +26,10 @@ a{color:var(--violet);font-weight:600;text-underline-offset:3px}
 .who img{width:32px;height:32px;border-radius:50%}
 .who span{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-weight:600}
 .wrap{max-width:760px;margin:0 auto;padding:6px 14px 40px}
-.foot .wrap{text-align:center;padding-bottom:30px}
+.foot .wrap{text-align:center;padding-bottom:96px}
 
 /* buttons: pills */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:52px;padding:0 26px;font:inherit;font-weight:700;color:var(--ink);background:var(--orange);border:0;border-radius:999px;cursor:pointer;transition:transform .08s,background .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:52px;padding:0 26px;font:inherit;font-weight:700;color:var(--ink);background:var(--orange);border:0;border-radius:999px;cursor:pointer;transition:transform .08s,background .15s,box-shadow .15s}
 .btn:hover{background:var(--orange-d)}
 .btn:active{transform:scale(.97)}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
@@ -39,7 +39,7 @@ a{color:var(--violet);font-weight:600;text-underline-offset:3px}
 .btn.sm{min-height:38px;padding:0 16px;font-size:14.5px}
 
 /* hero: an Android home screen with room for your app */
-.hero{background:var(--ink);color:#fff;border-radius:32px;padding:28px 22px 0;margin-bottom:14px;overflow:hidden;display:grid;gap:24px}
+.hero{background:radial-gradient(420px 280px at 88% -10%,#5040f066,transparent 70%),radial-gradient(320px 220px at -5% 105%,#ff6b2c26,transparent 70%),var(--ink);color:#fff;border-radius:32px;padding:28px 22px 0;margin-bottom:14px;overflow:hidden;display:grid;gap:24px}
 .chip{display:inline-flex;align-items:center;gap:8px;background:#2b2c63;color:#ffc2a8;border-radius:999px;padding:3px 14px 3px 12px;font-size:14px;font-weight:600}
 .chip::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--orange)}
 .hero h1{font-size:32px;line-height:1.3;font-weight:800;letter-spacing:-.01em;margin:14px 0 8px}
@@ -48,14 +48,23 @@ a{color:var(--violet);font-weight:600;text-underline-offset:3px}
 .win b{display:block}
 .win span{font-size:14.5px;color:#b5b2ea}
 .hero .btn{margin-top:18px}
-.phone{width:216px;margin:0 auto -100px;border-radius:36px 36px 0 0;background:#0a0b1f;border:2px solid #34366b;border-bottom:0;padding:8px 8px 0}
-.scr{height:310px;border-radius:28px 28px 0 0;background:#3f33d2;padding:12px 14px 0;overflow:hidden}
+
+/* live countdown */
+.cd-l{font-size:14px;color:#b5b2ea;margin-top:18px;font-weight:600}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px;max-width:340px}
+.cd div{background:#23245a;border:1px solid #34366b;border-radius:14px;padding:8px 2px 6px;text-align:center}
+.cd b{display:block;font-size:25px;line-height:1.25;font-weight:800;color:#fff}
+.cd span{display:block;font-size:12.5px;color:#b5b2ea;line-height:1.3}
+
+.phone{width:216px;margin:0 auto -100px;border-radius:36px 36px 0 0;background:#0a0b1f;border:2px solid #34366b;border-bottom:0;padding:8px 8px 0;box-shadow:0 -10px 60px #5040f066}
+.phone::before{content:'';display:block;width:52px;height:6px;border-radius:3px;background:#1d1e45;margin:2px auto 8px}
+.scr{height:310px;border-radius:28px 28px 0 0;background:linear-gradient(170deg,#4a3de6,#3326b8);padding:12px 14px 0;overflow:hidden}
 .sbar{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;font-weight:700;color:#ffffffd9}
 .sbar i{width:16px;height:8px;border:1.5px solid #ffffffd9;border-radius:3px}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 8px;margin-top:18px}
 .cell{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
 .ic{width:36px;height:36px;border-radius:12px}
-.ic.slot{border:2px dashed var(--orange);background:#ff6b2c24;display:grid;place-items:center;color:#ffa077;font-weight:800;font-size:17px;line-height:1}
+.ic.slot{border:2px dashed var(--orange);background:#ff6b2c24;display:grid;place-items:center;color:#ffa077;font-weight:800;font-size:17px;line-height:1;transition:background .2s,color .2s}
 .ic.slot.on{background:var(--orange);border-style:solid;color:var(--ink)}
 .lb{width:68%;height:4px;border-radius:2px;background:#ffffff3d}
 .lb.txt{width:auto;max-width:100%;height:auto;background:none;color:#fff;font-size:9.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -88,7 +97,7 @@ h2{font-size:20px;line-height:1.45;font-weight:800;margin-bottom:12px}
 h3{font-size:15px;font-weight:800;color:var(--violet);margin:32px 0 2px}
 label{display:block;font-weight:600;margin:18px 0 6px;font-size:15.5px}
 label small{font-weight:400;color:var(--mut)}
-input[type=text],input[type=url],input[type=tel],input[type=number],input[type=datetime-local],select,textarea{width:100%;min-height:52px;font:inherit;padding:12px 14px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:14px}
+input[type=text],input[type=url],input[type=tel],input[type=number],input[type=datetime-local],select,textarea{width:100%;min-height:52px;font:inherit;padding:12px 14px;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:14px;transition:border-color .15s,box-shadow .15s}
 textarea{min-height:110px;resize:vertical}
 select{-webkit-appearance:none;appearance:none;padding-right:42px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%2315163a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
 input:focus,select:focus,textarea:focus{outline:0;border-color:var(--violet);box-shadow:0 0 0 4px #5040f02e}
@@ -108,6 +117,29 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--violet);box
 .row>*{flex:0 0 auto}.grow{flex:1 1 140px!important}
 .mut{color:var(--mut);font-size:14.5px}
 
+/* smart form bits */
+.prog{position:sticky;top:62px;z-index:3;background:#fff;padding:10px 0 8px;margin-top:6px}
+.prog-t{font-size:13.5px;color:var(--mut);font-weight:600;margin-bottom:6px}
+.prog-bar{height:6px;border-radius:3px;background:var(--tint);overflow:hidden}
+.prog-bar i{display:block;height:100%;width:0;background:var(--orange);border-radius:3px;transition:width .35s}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:background .15s,color .15s,border-color .15s,transform .08s}
+.chips button:active{transform:scale(.96)}
+.chips button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* states */
+.ok-ic{width:46px;height:46px;border-radius:50%;background:#d6f5e8;color:var(--ok);display:grid;place-items:center;font-size:24px;font-weight:800;margin-bottom:12px}
+.congrats{position:relative;overflow:hidden;background:var(--orange);color:var(--ink);border-radius:28px;padding:24px 22px;margin-bottom:14px}
+.congrats b{display:block;font-size:22px;line-height:1.4;font-weight:800}
+.congrats p{margin-top:4px;font-weight:600}
+.cf{position:absolute;top:-14px;width:8px;height:12px;border-radius:2px;pointer-events:none;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translate(var(--dx),280px) rotate(var(--r));opacity:0}}
+.sk i{display:block;height:16px;border-radius:8px;margin:12px 0;background:var(--tint)}
+.sk i:first-child{height:26px;width:55%}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;justify-content:center;padding:28px 14px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(#eeedfc00,var(--canvas) 55%);pointer-events:none}
+.dock[hidden]{display:none}
+.dock .btn{width:100%;max-width:420px;pointer-events:auto;box-shadow:0 10px 28px #15163a40}
+
 /* admin */
 .tabs{display:flex;gap:4px;padding:4px;margin-bottom:16px;background:#dedbfb;border-radius:999px;overflow-x:auto;max-width:100%;width:max-content}
 .tabs button{border:0;background:transparent;color:#4a4780;padding:8px 18px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
@@ -122,7 +154,12 @@ summary::-webkit-details-marker{display:none}
 @media(prefers-reduced-motion:no-preference){
   .ic{animation:pop .55s both cubic-bezier(.2,1.5,.4,1);animation-delay:calc(var(--i)*45ms + 150ms)}
   @keyframes pop{from{transform:scale(.3);opacity:0}}
+  .phone{animation:float 6s ease-in-out 1.4s infinite}
+  @keyframes float{50%{transform:translateY(-7px)}}
   .toast{animation:up .2s ease-out}@keyframes up{from{opacity:0;transform:translate(-50%,8px)}}
+  .sk i{background:linear-gradient(90deg,var(--tint) 25%,#f4f3ff 50%,var(--tint) 75%);background-size:200% 100%;animation:sh 1.3s linear infinite}
+  @keyframes sh{to{background-position:-200% 0}}
+  .ok-ic{animation:pop .5s both cubic-bezier(.2,1.5,.4,1)}
 }
 @media(max-width:480px){.hero h1{font-size:29px}.card{padding:22px 16px}}
 </style>
@@ -133,7 +170,7 @@ summary::-webkit-details-marker{display:none}
   <div id="who" class="who"></div>
 </div></header>
 <main class="wrap">
-  <div id="app"><div class="card">লোড হচ্ছে…</div></div>
+  <div id="app"><div class="card sk"><i></i><i></i><i style="width:70%"></i></div></div>
 </main>
 <footer class="foot"><div class="wrap">
   <p class="mut">ব্যক্তিগত উদ্যোগ — কোনো কোম্পানি বা প্রতিষ্ঠানের সঙ্গে আনুষ্ঠানিক সম্পর্ক নেই।<br><a href="#admin" id="admlink">অ্যাডমিন</a></p>
@@ -170,8 +207,10 @@ const toLocalInput = ms=>ms?new Date(ms-new Date(ms).getTimezoneOffset()*60000).
 const STATUS = {applied:'আবেদিত',info_pending:'তথ্য বাকি',info_submitted:'তথ্য জমা',in_progress:'কাজ চলছে',delivered:'ডেলিভারি হয়েছে'};
 const TYPES = ['Note / Tracker','Utility / Calculator','Website → Android app','Form / Data storage','Lock / PIN / Settings','অন্যান্য'];
 const inApp = /FBAN|FBAV|FB_IAB|Instagram|Messenger/i.test(navigator.userAgent);
+const SK = '<div class="card sk"><i></i><i></i><i style="width:70%"></i></div>';
+const bn = n=>Number(n).toLocaleString('bn-BD');
 
-let user=null, isAdmin=false, offer=null;
+let user=null, isAdmin=false, offer=null, ending=false;
 
 function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),3200)}
 async function login(){
@@ -203,6 +242,68 @@ function counters(root){
 }
 const v = id=>($('#'+id)?.value||'').trim();
 
+/* ফর্ম প্রগ্রেস বার */
+function progress(f,rules){
+  const bar=$('#pgBar',f),txt=$('#pgTxt',f);
+  const up=()=>{const d=rules.filter(r=>{try{return r()}catch{return false}}).length;bar.style.width=(d/rules.length*100)+'%';txt.textContent=bn(d)+' / '+bn(rules.length)+' অংশ পূর্ণ'};
+  f.addEventListener('input',up);f.addEventListener('change',up);up();
+}
+const progHtml = ()=>`<div class="prog"><div class="prog-t" id="pgTxt"></div><div class="prog-bar"><i id="pgBar"></i></div></div>`;
+
+/* সিলেক্ট → ট্যাপ করার চিপ */
+function chipify(id,root){
+  const s=$('#'+id,root);if(!s)return;
+  const box=document.createElement('div');box.className='chips';
+  [...s.options].filter(o=>o.value).forEach(o=>{
+    const b=document.createElement('button');b.type='button';b.textContent=o.value;b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',()=>{
+      s.value=o.value;
+      $$('button',box).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+      s.dispatchEvent(new Event('change',{bubbles:true}));
+    });
+    box.appendChild(b);
+  });
+  s.style.display='none';s.after(box);
+}
+
+/* নির্বাচিত হলে ছোট উদ্‌যাপন */
+function burst(host){
+  if(!host||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const cols=['#15163a','#ffffff','#5040f0','#ffe28a'];
+  for(let i=0;i<28;i++){
+    const p=document.createElement('i');p.className='cf';
+    p.style.cssText=`left:${Math.random()*100}%;background:${cols[i%4]};--dx:${(Math.random()-.5)*90}px;--r:${Math.round(Math.random()*720)}deg;animation-delay:${(Math.random()*.5).toFixed(2)}s`;
+    host.appendChild(p);
+  }
+  setTimeout(()=>$$('.cf',host).forEach(e=>e.remove()),3000);
+}
+
+/* ভাসমান আবেদন বাটন (হিরো বাটন স্ক্রলে হারিয়ে গেলে) */
+function cleanup(){$$('.dock').forEach(e=>e.remove())}
+function setupDock(){
+  const go=$('#heroGo');if(!go||!('IntersectionObserver' in window))return;
+  const d=document.createElement('div');d.className='dock';d.hidden=true;
+  d.innerHTML='<button class="btn" type="button">Google দিয়ে আবেদন শুরু করুন</button>';
+  d.firstChild.addEventListener('click',()=>go.click());
+  document.body.appendChild(d);
+  const seen=new Map();
+  const io=new IntersectionObserver(es=>{es.forEach(e=>seen.set(e.target,e.isIntersecting));d.hidden=[...seen.values()].some(Boolean)});
+  io.observe(go);const lg=$('#login');if(lg)io.observe(lg);
+}
+
+/* লাইভ কাউন্টডাউন */
+function cdHtml(end){
+  const s=Math.max(0,Math.floor((end-Date.now())/1000));
+  const p=[[Math.floor(s/86400),'দিন'],[Math.floor(s%86400/3600),'ঘণ্টা'],[Math.floor(s%3600/60),'মিনিট'],[s%60,'সেকেন্ড']];
+  return p.map(([n,l])=>`<div><b>${Number(n).toLocaleString('bn-BD',{minimumIntegerDigits:2})}</b><span>${l}</span></div>`).join('');
+}
+setInterval(()=>{
+  const el=$('#cd');if(!el)return;
+  const end=+el.dataset.end;
+  el.innerHTML=cdHtml(end);
+  if(Date.now()>=end&&!ending&&!$('#f1')){ending=true;renderPublic().finally(()=>{ending=false})}
+},1000);
+
 /* ================= পাবলিক পেজ ================= */
 async function loadOpenOffer(){
   const s=await getDocs(query(collection(db,'offers'),where('status','==','open'),limit(1)));
@@ -214,13 +315,12 @@ function ticket(o){
   const N=x=>x.toLocaleString('bn-BD');
   const dS=ms=>new Date(ms).toLocaleDateString('bn-BD',{day:'numeric',month:'short'});
   const tS=ms=>new Date(ms).toLocaleTimeString('bn-BD',{hour:'numeric',minute:'2-digit'});
-  const left=ms=>{const m=Math.max(0,Math.floor((ms-Date.now())/60000)),d=Math.floor(m/1440),h=Math.floor(m%1440/60),mi=m%60;return d?`${N(d)} দিন ${N(h)} ঘণ্টা`:h?`${N(h)} ঘণ্টা ${N(mi)} মিনিট`:`${N(mi)} মিনিট`};
   const s1=now<=o.applyEnd?['on','চলছে']:['done','শেষ'];
   const s2=o.drawn?['done','সম্পন্ন']:now>=o.drawDate?['on','চলছে']:['next','আসছে'];
   const s3=now>o.detailsEnd?['done','শেষ']:o.drawn?['on','চলছে']:['next','আসছে'];
   const tag={on:'pill g',done:'pill x',next:'pill'};
   const st=(s,t,ms)=>`<li class="${s[0]}"><i></i><b>${t}</b><span class="d">${dS(ms)}</span><span class="t">${tS(ms)}</span><span class="${tag[s[0]]}">${s[1]}</span></li>`;
-  const chip=now<=o.applyEnd?'আবেদন শেষ হতে আর '+left(o.applyEnd):o.drawn?'বাছাই সম্পন্ন হয়েছে':'আবেদন বন্ধ হয়েছে';
+  const chip=now<=o.applyEnd?'আবেদন চলছে':o.drawn?'বাছাই সম্পন্ন হয়েছে':'আবেদন বন্ধ হয়েছে';
   const n=N(+o.winnersCount||0);
   const cols=['#ffb59a','#9be8c8','#ffe28a','#b7c2ff','#ff9fc2','#8fd9ff'];
   const k=Math.max(1,Math.min(+o.winnersCount||1,6));
@@ -232,6 +332,7 @@ function ticket(o){
       +(si>=0?`<div class="ic slot"${si===0?' id="pvIcon"':''}>+</div>`:`<div class="ic" style="background:${cols[(i*5)%6]}"></div>`)
       +(si===0?'<div class="lb txt" id="pvName">আপনার অ্যাপ</div>':'<div class="lb"></div>')+`</div>`;
   }
+  const cd=now<=o.applyEnd?`<div class="cd-l">আবেদন শেষ হতে বাকি</div><div class="cd" id="cd" role="timer" data-end="${o.applyEnd}">${cdHtml(o.applyEnd)}</div>`:'';
   const cta=(!user&&now<=o.applyEnd)?'<button class="btn" id="heroGo">Google দিয়ে আবেদন শুরু করুন</button>':'';
   const notes=user?'':`<section class="card"><h2>আবেদনের আগে জেনে নিন</h2><ul class="notes">
     <li><span class="ico w" aria-hidden="true">!</span><span>গেম, পেমেন্ট/ব্যাংকিং বা বেআইনি ধরনের অ্যাপ চাওয়া যাবে না।</span></li>
@@ -244,6 +345,7 @@ function ticket(o){
     <h1>${esc(o.title)}</h1>
     <p class="sub">${esc(o.description||'')}</p>
     <div class="win"><b>র‍্যান্ডম বাছাইয়ে ${n} জন নির্বাচিত হবেন।</b><span>আবেদন শেষ হলে একবারই বাছাই চলবে, ফলাফল আর বদলানো যাবে না।</span></div>
+    ${cd}
     ${cta}</div>
     <div class="phone" aria-hidden="true"><div class="scr"><div class="sbar"><span>${tS(now)}</span><i></i></div><div class="grid">${cells}</div></div></div>
   </section>
@@ -252,11 +354,12 @@ function ticket(o){
 }
 async function renderPublic(){
   const app=$('#app');
-  app.innerHTML='<div class="card">লোড হচ্ছে…</div>';
+  cleanup();
+  app.innerHTML=SK;
   try{offer=await loadOpenOffer()}catch(e){app.innerHTML='<div class="msg bad">ডেটা আনা যায়নি। Firestore চালু ও রুলস পাবলিশ করা আছে কি না দেখুন।</div>';return}
   if(!offer){app.innerHTML='<div class="card"><h2>এই মুহূর্তে কোনো অফার চালু নেই</h2><p class="mut">নতুন অফার এলে ফেসবুক পেজে জানানো হবে।</p></div>'+(user?'':'<div class="card"><p class="mut" style="margin-bottom:10px">আগে আবেদন করে থাকলে লগইন করে অবস্থা দেখুন।</p>'+loginBlock()+'</div>');bindLogin();return}
   let html=ticket(offer);
-  if(!user){app.innerHTML=html+`<div class="card"><h2>আবেদন করতে লগইন করুন</h2><p class="mut" style="margin-bottom:12px">আপনার নাম ও Gmail আবেদনের সঙ্গে জমা হবে। ফলাফল এই Gmail-এ জানানো হবে।</p>${loginBlock()}</div>`;bindLogin();return}
+  if(!user){app.innerHTML=html+`<div class="card"><h2>আবেদন করতে লগইন করুন</h2><p class="mut" style="margin-bottom:12px">আপনার নাম ও Gmail আবেদনের সঙ্গে জমা হবে। ফলাফল এই Gmail-এ জানানো হবে।</p>${loginBlock()}</div>`;bindLogin();setupDock();return}
   const ref=doc(db,'offers',offer.id,'applications',user.uid);
   let snap;try{snap=await getDoc(ref)}catch(e){app.innerHTML=html+'<div class="msg bad">আপনার আবেদন লোড করা যায়নি।</div>';return}
   const now=Date.now();
@@ -266,7 +369,7 @@ async function renderPublic(){
   }
   const a=snap.data();
   if(!offer.drawn){
-    app.innerHTML=html+`<div class="card"><h2>আপনার আবেদন জমা হয়েছে</h2><div class="msg ok">বাছাইয়ের তারিখ: ${fmt(offer.drawDate)}। ফলাফল আপনার Gmail-এ জানানো হবে এবং এই লিংকেও দেখা যাবে।</div>
+    app.innerHTML=html+`<div class="card"><div class="ok-ic" aria-hidden="true">✓</div><h2>আপনার আবেদন জমা হয়েছে</h2><div class="msg ok">বাছাইয়ের তারিখ: ${fmt(offer.drawDate)}। ফলাফল আপনার Gmail-এ জানানো হবে এবং এই লিংকেও দেখা যাবে।</div>
     <dl class="det" style="border:0;padding:0"><dt>অ্যাপের নাম</dt><dd>${esc(a.appName)}</dd><dt>কী করবে</dt><dd>${esc(a.appPurpose)}</dd></dl></div>`;return;
   }
   if(!a.selected){
@@ -274,7 +377,7 @@ async function renderPublic(){
   }
   if(a.workStatus==='info_pending'){
     if(now>offer.detailsEnd){app.innerHTML=html+'<div class="card"><h2>তথ্য জমার সময় শেষ</h2><p class="mut">নির্ধারিত সময়ে তথ্য জমা না হওয়ায় এখন আর জমা নেওয়া যাচ্ছে না। কিছু বলার থাকলে সরাসরি যোগাযোগ করুন।</p></div>';return}
-    app.innerHTML=html+`<div class="msg ok"><b>অভিনন্দন! আপনি নির্বাচিত হয়েছেন।</b> নিচের ফর্ম ${fmt(offer.detailsEnd)}-এর মধ্যে জমা দিন।</div>`+step2Html(a);bindStep2(ref,a);return;
+    app.innerHTML=html+`<section class="congrats" id="cg"><b>অভিনন্দন! আপনি নির্বাচিত হয়েছেন।</b><p>নিচের ফর্ম ${fmt(offer.detailsEnd)}-এর মধ্যে জমা দিন।</p></section>`+step2Html(a);bindStep2(ref,a);burst($('#cg'));return;
   }
   app.innerHTML=html+`<div class="card"><h2>আপনার অ্যাপ: ${esc(a.appName)}</h2><p><span class="pill ${a.workStatus==='delivered'?'ok':'g'}">${STATUS[a.workStatus]||a.workStatus}</span></p><p class="mut" style="margin-top:10px">${a.workStatus==='delivered'?'আপনার অ্যাপ ডেলিভারি হয়েছে।':'আপনার তথ্য জমা হয়েছে। কাজের অগ্রগতি এখানে দেখতে পাবেন।'}</p></div>`;
 }
@@ -282,17 +385,22 @@ async function renderPublic(){
 function step1Html(){
   return `<form class="card" id="f1" novalidate><h2>আবেদন ফর্ম</h2>
   <p class="mut">নাম ও Gmail লগইন থেকে নেওয়া হয়েছে। জমার পর এডিট করা যাবে না।</p>
+  ${progHtml()}
+  <h3>ক. অ্যাপের ধারণা</h3>
   <label for="appName">অ্যাপের নাম</label><input type="text" id="appName" maxlength="40" data-min="3">
   <label for="appPurpose">অ্যাপ কী সমস্যা সমাধান করবে?</label><textarea id="appPurpose" maxlength="600" data-min="100"></textarea>
+  <h3>খ. ফিচার ও ব্যবহারকারী</h3>
   <label for="ft1">প্রধান ফিচার ১</label><input type="text" id="ft1" maxlength="200" data-min="20">
   <label for="ft2">প্রধান ফিচার ২</label><input type="text" id="ft2" maxlength="200" data-min="20">
   <label for="ft3">প্রধান ফিচার ৩</label><input type="text" id="ft3" maxlength="200" data-min="20">
   <label for="targetUsers">কার জন্য দরকার?</label><textarea id="targetUsers" maxlength="400" data-min="50"></textarea>
+  <h3>গ. ধরন</h3>
   <label for="appType">অ্যাপের ধরন</label><select id="appType"><option value="">বেছে নিন</option>${TYPES.map(t=>`<option>${esc(t)}</option>`).join('')}</select>
   <div id="otherBox" style="display:none"><label for="appTypeOther">কী ধরনের?</label><input type="text" id="appTypeOther" maxlength="80"></div>
   <label for="needsInternet">ইন্টারনেট লাগবে?</label><select id="needsInternet"><option value="">বেছে নিন</option><option>হ্যাঁ</option><option>না</option><option>জানি না</option></select>
   <label for="usedFor">অ্যাপটি কার জন্য?</label><select id="usedFor"><option value="">বেছে নিন</option><option>নিজের জন্য</option><option>অন্যের জন্য</option><option>ব্যবসার জন্য</option></select>
   <label for="fbLink">ফেসবুক প্রোফাইল লিংক <small>(ঐচ্ছিক)</small></label><input type="url" id="fbLink" maxlength="300" placeholder="https://facebook.com/…">
+  <h3>ঘ. সম্মতি</h3>
   <label class="chk"><input type="checkbox" id="c1"><span>আমি <a href="${esc(offer.rulesUrl||'#')}" target="_blank" rel="noopener">নিয়মাবলি</a> পড়েছি ও মানছি।</span></label>
   <label class="chk"><input type="checkbox" id="c2"><span>প্রাইভেসি নোট বুঝেছি: আমার তথ্য শুধু এই অফারের জন্য ব্যবহার হবে।</span></label>
   <label class="chk"><input type="checkbox" id="c3"><span>আমি নিষিদ্ধ ধরনের অ্যাপ (গেম, পেমেন্ট/ব্যাংকিং, বেআইনি কিছু) চাইছি না।</span></label>
@@ -308,6 +416,13 @@ function bindStep1(ref){
     pvI.textContent=c;pvI.classList.toggle('on',!!t);pvN.textContent=t||'আপনার অ্যাপ';
   });
   $('#appType').addEventListener('change',e=>{$('#otherBox').style.display=e.target.value==='অন্যান্য'?'block':'none'});
+  ['appType','needsInternet','usedFor'].forEach(id=>chipify(id,f));
+  progress(f,[
+    ()=>v('appName').length>=3,()=>v('appPurpose').length>=100,
+    ()=>v('ft1').length>=20,()=>v('ft2').length>=20,()=>v('ft3').length>=20,
+    ()=>v('targetUsers').length>=50,()=>!!v('appType'),()=>!!v('needsInternet'),()=>!!v('usedFor'),
+    ()=>$('#c1').checked&&$('#c2').checked&&$('#c3').checked
+  ]);
   f.addEventListener('submit',async e=>{
     e.preventDefault();
     const er=[];const L=(id,n,name)=>{if(v(id).length<n)er.push(`${name}: আরও ${n-v(id).length} অক্ষর লিখুন`)};
@@ -327,7 +442,7 @@ function bindStep1(ref){
         appName:v('appName'),appPurpose:v('appPurpose'),feature1:v('ft1'),feature2:v('ft2'),feature3:v('ft3'),targetUsers:v('targetUsers'),
         appType:v('appType'),appTypeOther:v('appType')==='অন্যান্য'?v('appTypeOther'):'',needsInternet:v('needsInternet'),usedFor:v('usedFor'),fbLink:v('fbLink'),
         agreed:true,selected:false,waitlist:false,workStatus:'applied',createdAt:serverTimestamp()});
-      toast('আবেদন জমা হয়েছে');renderPublic();
+      toast('আবেদন জমা হয়েছে');window.scrollTo({top:0,behavior:'smooth'});renderPublic();
     }catch(x){$('#sub').disabled=false;$('#err').innerHTML='<div class="msg bad">জমা হয়নি ('+esc(x.code||x.message)+')। আপনি আগে আবেদন করে থাকলে আবার করা যাবে না।</div>'}
   });
 }
@@ -335,6 +450,7 @@ function bindStep1(ref){
 function step2Html(a){
   const feats=[a.feature1,a.feature2,a.feature3];
   return `<form class="card" id="f2" novalidate><h2>বিজয়ীর তথ্য ফর্ম</h2>
+  ${progHtml()}
   <h3>ক. পরিচয় ও যোগাযোগ</h3>
   <label for="fullName">পুরো নাম</label><input type="text" id="fullName" maxlength="80" value="${esc(user.displayName||'')}" data-min="3">
   <label for="wa">WhatsApp নম্বর</label><input type="tel" id="wa" maxlength="20" placeholder="01XXXXXXXXX">
@@ -367,6 +483,17 @@ function bindStep2(ref,a){
   const sc=$('#screens');
   const addRow=()=>{const d=document.createElement('div');d.className='sc';d.innerHTML='<input type="text" class="sn" maxlength="40" placeholder="স্ক্রিনের নাম"><input type="text" class="sd" maxlength="160" placeholder="এক লাইনে কী থাকবে">';sc.appendChild(d)};
   addRow();addRow();$('#addSc').addEventListener('click',()=>{if($$('.sc',sc).length<12)addRow()});
+  ['ctime','net2','login2','lang','theme','ui'].forEach(id=>{const s=$('#'+id,f);if(s&&s.options.length<=4)chipify(id,f)});
+  /* চিপে প্রথম অপশন আগে থেকেই বাছাই দেখানো */
+  ['ctime','net2','login2','lang','theme','ui'].forEach(id=>{const s=$('#'+id,f);const b=s?.nextElementSibling?.querySelector('button');if(b)b.setAttribute('aria-pressed','true')});
+  progress(f,[
+    ()=>v('fullName').length>=3,()=>/^(\+?88)?01[3-9]\d{8}$/.test(v('wa').replace(/[\s-]/g,'')),
+    ()=>v('finalName').length>=3,()=>v('desc').length>=200,
+    ()=>$$('.sn',sc).filter(i=>i.value.trim()).length>=2,
+    ()=>v('fd0').length>=50,()=>v('fd1').length>=50,()=>v('fd2').length>=50,
+    ()=>v('dataInfo').length>=20,()=>!!v('color'),()=>v('icon').length>=5,
+    ()=>$('#k1').checked&&$('#k2').checked&&$('#k3').checked
+  ]);
   f.addEventListener('submit',async e=>{
     e.preventDefault();
     const er=[],L=(id,n,name)=>{if(v(id).length<n)er.push(`${name}: আরও ${n-v(id).length} অক্ষর লিখুন`)};
@@ -382,7 +509,7 @@ function bindStep2(ref,a){
       await updateDoc(ref,{step2:{fullName:v('fullName'),whatsapp:v('wa'),altContact:v('alt'),contactTime:v('ctime'),finalName:v('finalName'),description:v('desc'),screens,
         featureDetails:[v('fd0'),v('fd1'),v('fd2')],dataInfo:v('dataInfo'),needsInternet:v('net2'),needsLogin:v('login2'),language:v('lang'),color:v('color'),theme:v('theme'),refLink:v('ref'),iconIdea:v('icon'),uiStyle:v('ui')},
         step2At:serverTimestamp(),workStatus:'info_submitted'});
-      toast('তথ্য জমা হয়েছে');renderPublic();
+      toast('তথ্য জমা হয়েছে');window.scrollTo({top:0,behavior:'smooth'});renderPublic();
     }catch(x){$('#sub').disabled=false;$('#err').innerHTML='<div class="msg bad">জমা হয়নি ('+esc(x.code||x.message)+')। সময় শেষ হয়ে থাকতে পারে।</div>'}
   });
 }
@@ -392,9 +519,10 @@ const adm={offers:[],cur:null,apps:[],tab:'offer'};
 
 async function renderAdmin(){
   const app=$('#app');
+  cleanup();
   if(!user){app.innerHTML=`<div class="card"><h2>অ্যাডমিন লগইন</h2>${loginBlock()}</div>`;bindLogin();return}
   if(!isAdmin){app.innerHTML='<div class="card"><h2>অনুমতি নেই</h2><p class="mut">এই Gmail অ্যাডমিন নয়: '+esc(user.email)+'</p></div>';return}
-  app.innerHTML='<div class="card">লোড হচ্ছে…</div>';
+  app.innerHTML=SK;
   try{await loadOffers()}catch(e){app.innerHTML='<div class="msg bad">অফার লোড হয়নি ('+esc(e.code||e.message)+')। রুলস পাবলিশ করেছেন কি?</div>';return}
   drawAdmin();
 }
