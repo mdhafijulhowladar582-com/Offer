@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{var t=localStorage.getItem('nova_theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','light')}</script>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#eeedfc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0f2c" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>অ্যাডমিন — HafijulNovaLabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="admin.html"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#15163a"/><path d="M16 5l2.6 8.4L27 16l-8.4 2.6L16 27l-2.6-8.4L5 16l8.4-2.6z" fill="#ff6b2c"/></svg><span>HafijulNovaLabs</span></a>
+  <div id="who" class="who"></div>
+</div></header>
+<main class="wrap">
+  <div id="app"><div class="card sk"><i></i><i></i><i style="width:70%"></i></div></div>
+</main>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,collection,doc,getDoc,getDocs,setDoc,addDoc,updateDoc,query,where,limit,orderBy,serverTimestamp,writeBatch} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* ====== কনফিগ ====== */
+const firebaseConfig = {
+  apiKey: "AIzaSyAFv6mpdhQ-UsgiptrjKFsxzJ_opCazmEk",
+  authDomain: "offer-d5dd7.firebaseapp.com",
+  projectId: "offer-d5dd7",
+  storageBucket: "offer-d5dd7.firebasestorage.app",
+  messagingSenderId: "85495519418",
+  appId: "1:85495519418:web:ce4ea3ff9d0af4c1394a83"
+};
+const LOGO_URL = ""; // এখানে লোগোর সরাসরি লিংক বসান (যেমন https://i.ibb.co/xxxx/logo.png). ফাঁকা থাকলে তারা-আইকন দেখাবে
+const ADMIN_EMAILS = ["mdhafijulhowladar582@gmail.com"]; // firestore.rules-এও একই মেইল থাকতে হবে
+/* ==================== */
+
+const fb = initializeApp(firebaseConfig);
+const auth = getAuth(fb), db = getFirestore(fb), provider = new GoogleAuthProvider();
+provider.setCustomParameters({prompt:'select_account'});
+
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+
+/* ডার্ক / লাইট মোড (পাবলিক পেজের সঙ্গে একই পছন্দ মনে রাখে) */
+let theme=document.documentElement.getAttribute('data-theme')||'light';
+function applyTheme(){document.documentElement.setAttribute('data-theme',theme);$$('meta[name=theme-color]').forEach(m=>m.setAttribute('content',theme==='dark'?'#0e0f2c':'#eeedfc'))}
+const toolsHtml=()=>`<button class="ic-btn" id="themeBtn" type="button" aria-label="ডার্ক/লাইট মোড">${theme==='dark'?'☀️':'🌙'}</button>`;
+function bindTools(){
+  $('#themeBtn')?.addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';try{localStorage.setItem('nova_theme',theme)}catch{}applyTheme();renderWho(user,isAdmin,'admin')});
+}
+applyTheme();
+if(LOGO_URL){const b=document.querySelector('.brand svg');if(b){const im=document.createElement('img');im.src=LOGO_URL;im.alt='';im.className='logo-img';b.replaceWith(im)}}
+const esc = s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = ms=>ms?new Date(ms).toLocaleString('bn-BD',{day:'numeric',month:'long',year:'numeric',hour:'numeric',minute:'2-digit'}):'—';
+const toLocalInput = ms=>ms?new Date(ms-new Date(ms).getTimezoneOffset()*60000).toISOString().slice(0,16):'';
+const STATUS = {applied:'আবেদিত',info_pending:'তথ্য বাকি',info_submitted:'তথ্য জমা',in_progress:'কাজ চলছে',delivered:'ডেলিভারি হয়েছে'};
+const TYPES = ['Note / Tracker','Utility / Calculator','Website → Android app','Form / Data storage','Lock / PIN / Settings','অন্যান্য'];
+const inApp = /FBAN|FBAV|FB_IAB|Instagram|Messenger/i.test(navigator.userAgent);
+const SK = '<div class="card sk"><i></i><i></i><i style="width:70%"></i></div>';
+const bn = n=>Number(n).toLocaleString('bn-BD');
+const safeUrl = u=>/^https?:\/\//i.test(u||'')?u:'';
+const sha = async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),3200)}
+async function login(){
+  try{await signInWithPopup(auth,provider)}
+  catch(e){
+    if(['auth/popup-blocked','auth/operation-not-supported-in-this-environment'].includes(e.code)) signInWithRedirect(auth,provider);
+    else if(e.code!=='auth/popup-closed-by-user'&&e.code!=='auth/cancelled-popup-request') toast('লগইন হয়নি ('+e.code+')');
+  }
+}
+const loginBlock = ()=>`
+  ${inApp?`<div class="msg warn"><b>ফেসবুকের ভেতরের ব্রাউজারে Google লগইন কাজ করে না।</b><br>ডানদিকের ⋮ মেনু থেকে <b>Open in Chrome / ব্রাউজারে খুলুন</b> চাপুন, অথবা লিংকটা কপি করে Chrome-এ খুলুন।<div style="margin-top:8px"><button class="btn sm gold" id="cplink">লিংক কপি করুন</button></div></div>`:''}
+  <button class="btn" id="login">Google দিয়ে লগইন করুন</button>`;
+function bindLogin(){
+  $('#login')?.addEventListener('click',login);
+  $('#heroGo')?.addEventListener('click',()=>{inApp?$('#login')?.scrollIntoView({behavior:'smooth',block:'center'}):login()});
+  $('#cplink')?.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.href.split('#')[0]);toast('লিংক কপি হয়েছে')}catch{toast('কপি হয়নি')}});
+}
+
+function renderWho(user,isAdmin,page){
+  const w=$('#who');if(!w)return;
+  if(!user){w.innerHTML=toolsHtml()+'<button class="btn sm" id="hlogin">লগইন</button>';$('#hlogin').addEventListener('click',login);bindTools();return}
+  w.innerHTML=toolsHtml()+`${user.photoURL?`<img src="${esc(user.photoURL)}" alt="">`:''}<span>${esc(user.displayName||user.email)}</span>${page==='public'&&isAdmin?'<a href="admin.html">অ্যাডমিন</a>':''}${page==='admin'?'<a href="index.html">হোম</a>':''}<button class="btn ghost sm" id="out">বের হন</button>`;
+  $('#out')?.addEventListener('click',()=>signOut(auth));bindTools();
+}
+
+const v = id=>($('#'+id)?.value||'').trim();
+
+/* ফাঁকা বা অর্থহীন লেখা ধরা (aaaaaa, 123123 ইত্যাদি) */
+function junk(s){
+  s=String(s||'').trim();if(!s)return false;
+  if(/(.)\1{5,}/u.test(s))return true;
+  if(s.length>=20&&new Set([...s.replace(/\s/g,'')]).size<7)return true;
+  if(/^[\d\s\p{P}\p{S}]+$/u.test(s))return true;
+  return false;
+}
+
+
+
+
+let user=null, isAdmin=false, offer=null;
+
+const parseShow = t=>t.split('\n').map(l=>l.split('|').map(s=>s.trim())).filter(x=>x[0]).slice(0,12).map(([n,i,u])=>({n:n.slice(0,40),i:safeUrl(i||''),u:safeUrl(u||'')}));
+/* অ্যাডমিন অডিট লগ: অফার ডকে সর্বশেষ ৬০টি এন্ট্রি */
+async function audit(text){
+  const o=curOffer();if(!o)return;
+  const L=(adm.meta.audit||[]).slice(-59);L.push({t:Date.now(),u:user?.email||'',a:text});adm.meta.audit=L;
+  try{await setDoc(doc(db,'offers',o.id,'private','meta'),{audit:L},{merge:true})}catch{}
+}
+
+/* অ্যাডমিন: আবেদনের মান স্কোর (০–১০০) */
+function qScore(a){
+  const L=s=>String(s||'').trim().length;
+  let s=Math.min(L(a.appPurpose)/300,1)*35+Math.min(L(a.targetUsers)/150,1)*20;
+  s+=[a.feature1,a.feature2,a.feature3].reduce((t,x)=>t+Math.min(L(x)/80,1),0)/3*30;
+  if(a.fbLink)s+=5;
+  if(![a.appPurpose,a.targetUsers,a.feature1,a.feature2,a.feature3].some(junk))s+=10;
+  return Math.round(s);
+}
+/* অ্যাডমিন: দিনভিত্তিক আবেদন চার্ট */
+function chartHtml(){
+  const days=[];const now=new Date();
+  for(let i=6;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i);days.push({k:d.toDateString(),l:d.toLocaleDateString('bn-BD',{day:'numeric'}),n:0})}
+  adm.apps.forEach(a=>{const ms=a.createdAt?.toMillis?.();if(!ms)return;const d=days.find(x=>x.k===new Date(ms).toDateString());if(d)d.n++});
+  const max=Math.max(1,...days.map(d=>d.n));
+  return `<div class="card"><b>গত ৭ দিনের আবেদন</b><div class="bars">${days.map(d=>`<div style="height:${Math.max(4,d.n/max*100)}%"><span>${d.n?bn(d.n):''}</span></div>`).join('')}</div><div class="barl">${days.map(d=>`<span>${d.l}</span>`).join('')}</div></div>`;
+}
+/* অ্যাডমিন: WhatsApp এক-ট্যাপ লিংক */
+function waLink(num,name){
+  let d=String(num||'').replace(/\D/g,'');if(!d)return '';
+  if(d.startsWith('01'))d='88'+d;
+  const t=encodeURIComponent(`আসসালামু আলাইকুম ${name||''}, HafijulNovaLabs-এর ফ্রি অ্যাপ অফার নিয়ে যোগাযোগ করছি।`);
+  return `https://wa.me/${d}?text=${t}`;
+}
+/* বাছাইয়ের সময় নাম ঘোরার অ্যানিমেশন */
+function spin(names){
+  return new Promise(res=>{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!names.length){res();return}
+    const o=document.createElement('div');o.className='spin';o.innerHTML='<div><small>র‍্যান্ডম বাছাই চলছে…</small><b id="spN"></b></div>';
+    document.body.appendChild(o);const el=$('#spN',o);
+    const iv=setInterval(()=>{el.textContent=names[Math.floor(Math.random()*names.length)]},70);
+    setTimeout(()=>{clearInterval(iv);o.remove();res()},2800);
+  });
+}
+
+
+/* ================= অ্যাডমিন ================= */
+const adm={offers:[],cur:null,apps:[],tab:'offer',meta:{}};
+
+async function renderAdmin(){
+  const app=$('#app');
+
+  if(!user){app.innerHTML=`<div class="card"><h2>অ্যাডমিন লগইন</h2>${loginBlock()}</div>`;bindLogin();return}
+  if(!isAdmin){app.innerHTML='<div class="card"><h2>অনুমতি নেই</h2><p class="mut">এই Gmail অ্যাডমিন নয়: '+esc(user.email)+'</p></div>';return}
+  app.innerHTML=SK;
+  try{await loadOffers()}catch(e){app.innerHTML='<div class="msg bad">অফার লোড হয়নি ('+esc(e.code||e.message)+')। রুলস পাবলিশ করেছেন কি?</div>';return}
+  drawAdmin();
+}
+async function loadOffers(){
+  const s=await getDocs(query(collection(db,'offers'),orderBy('createdAt','desc')));
+  adm.offers=s.docs.map(d=>({id:d.id,...d.data()}));
+  if(!adm.cur||!adm.offers.find(o=>o.id===adm.cur)) adm.cur=(adm.offers.find(o=>o.status==='open')||adm.offers[0]||{}).id||null;
+}
+async function loadApps(){
+  if(!adm.cur){adm.apps=[];return}
+  const s=await getDocs(collection(db,'offers',adm.cur,'applications'));
+  adm.apps=s.docs.map(d=>({id:d.id,...d.data()}));
+  adm.meta={};
+  try{
+    const ps=await getDocs(collection(db,'offers',adm.cur,'private'));
+    const notes={};
+    ps.docs.forEach(d=>{if(d.id==='meta')adm.meta=d.data();else if(d.id.startsWith('n_'))notes[d.id.slice(2)]=d.data()});
+    adm.apps.forEach(a=>{const n=notes[a.id];if(n){a.tag=n.tag||'';a.adminNote=n.adminNote||''}});
+  }catch{toast('অ্যাডমিন-ওনলি ডেটা লোড হয়নি: নতুন রুলস পাবলিশ করেছেন কি?')}
+}
+const curOffer=()=>adm.offers.find(o=>o.id===adm.cur);
+
+/* ================= পাবলিক পরিসংখ্যান ================= */
+/* সংখ্যাগুলো offers/{id}.stats-এ থাকে; সাধারণ ইউজার আবেদন পড়তে পারে না, তাই অ্যাডমিন এখান থেকে হিসাব করে রাখে */
+const SHOW_KEYS=[['applied','মোট আবেদন'],['selected','নির্বাচিত'],['delivered','ডেলিভারি হওয়া অ্যাপ'],['inProgress','এখন কাজ চলছে']];
+function calcStats(){
+  const A=adm.apps,S=A.filter(a=>a.selected);
+  return {applied:A.length,selected:S.length,delivered:S.filter(a=>a.workStatus==='delivered').length,inProgress:S.filter(a=>a.workStatus==='in_progress').length};
+}
+async function syncStats(force){
+  const o=curOffer();if(!o)return false;
+  const c=calcStats(),old=o.stats||{},first=typeof old.showStats!=='boolean';
+  if(!force&&!first&&Object.keys(c).every(k=>old[k]===c[k]))return false;
+  const upd={};
+  Object.entries(c).forEach(([k,n])=>{upd['stats.'+k]=n});
+  if(first){upd['stats.showStats']=true;SHOW_KEYS.forEach(([k])=>{upd['stats.show.'+k]=true})}
+  try{
+    await updateDoc(doc(db,'offers',o.id),upd);
+    o.stats={...old,...c,...(first?{showStats:true,show:{applied:true,selected:true,delivered:true,inProgress:true}}:{})};
+    return true;
+  }catch{return false}
+}
+const pubStatsCard=o=>{
+  const s=o.stats||{},sh=s.show||{};
+  return `<div class="card"><h2>📊 পাবলিক পরিসংখ্যান</h2>
+  <p class="mut">অন থাকলে পাবলিক পেজে সংখ্যাগুলো সবাই দেখতে পাবে। অফ করলে কার্ডটা পুরো লুকানো থাকবে।</p>
+  <label class="chk"><input type="checkbox" id="psOn" ${s.showStats!==false?'checked':''}><span><b>পাবলিক পেজে পরিসংখ্যান দেখান</b></span></label>
+  <h3>কোন সংখ্যাগুলো দেখাবে</h3>
+  ${SHOW_KEYS.map(([k,t])=>`<label class="chk"><input type="checkbox" data-ps="${k}" ${sh[k]!==false?'checked':''}><span>${t}: <b>${bn(s[k]??0)}</b></span></label>`).join('')}
+  <p class="mut" style="margin-top:10px">আবেদনের সংখ্যা রিয়েলটাইমে বাড়ে না। আপনি অ্যাডমিন পেজ খুললে, বাছাই বা স্ট্যাটাস বদলালে, অথবা "পুনর্গণনা" চাপলে আপডেট হয়।</p>
+  <div class="row" style="margin-top:12px"><button class="btn" type="button" id="psSave">সেভ করুন</button><button class="btn ghost" type="button" id="psRe">পুনর্গণনা</button></div></div>`;
+};
+function bindPubStats(o){
+  $('#psSave')?.addEventListener('click',async()=>{
+    const on=$('#psOn').checked,show=Object.fromEntries($$('[data-ps]').map(c=>[c.dataset.ps,c.checked]));
+    const upd={'stats.showStats':on};
+    Object.entries(show).forEach(([k,b])=>{upd['stats.show.'+k]=b});
+    try{
+      await updateDoc(doc(db,'offers',o.id),upd);
+      o.stats={...(o.stats||{}),showStats:on,show};
+      audit('পরিসংখ্যান সেটিং সেভ');toast('সেভ হয়েছে');
+    }catch(x){toast('হয়নি: '+(x.code||x.message))}
+  });
+  $('#psRe')?.addEventListener('click',async()=>{
+    await loadApps();
+    const ok=await syncStats(true);
+    audit('পরিসংখ্যান পুনর্গণনা');toast(ok?'পুনর্গণনা হয়েছে':'পুনর্গণনা হয়নি');drawAdmin();
+  });
+}
+
+function statsHtml(){
+  const A=adm.apps,S=A.filter(a=>a.selected);
+  const c=[[`${A.length}`,'মোট আবেদন',1],[`${S.length}`,'নির্বাচিত'],
+    [`${S.filter(a=>a.workStatus!=='info_pending').length} / ${S.length}`,'তথ্য জমা'],
+    [`${S.filter(a=>a.workStatus==='delivered').length} / ${S.length}`,'ডেলিভারি']];
+  return `<div class="stats">${c.map(([n,l,h])=>`<div class="stat${h?' hi':''}"><b>${n.replace(/\d+/g,m=>bn(m))}</b><span>${l}</span></div>`).join('')}</div>`;
+}
+async function drawAdmin(){
+  const app=$('#app');
+  await loadApps();
+  const o=curOffer();
+  if(o)await syncStats();
+  app.innerHTML=`<div class="card"><div class="row"><select id="sel" class="grow">${adm.offers.map(x=>`<option value="${x.id}" ${x.id===adm.cur?'selected':''}>${esc(x.title)} (${x.status==='open'?'চালু':x.status==='closed'?'বন্ধ':'খসড়া'})</option>`).join('')||'<option>কোনো অফার নেই</option>'}</select>
+  <button class="btn sm" id="new">+ নতুন অফার</button></div></div>
+  ${o?statsHtml():''}<div class="tabs">${[['offer','অফার'],['apps','আবেদন ('+adm.apps.length+')'],['board','বোর্ড'],['draw','বাছাই ও মেইল']].map(([k,t])=>`<button data-t="${k}" class="${adm.tab===k?'on':''}">${t}</button>`).join('')}</div><div id="pane"></div>`;
+  $('#sel').addEventListener('change',e=>{adm.cur=e.target.value;drawAdmin()});
+  $('#new').addEventListener('click',()=>{adm.cur=null;adm.tab='offer';drawAdmin()});
+  $$('.tabs button').forEach(b=>b.addEventListener('click',()=>{adm.tab=b.dataset.t;drawAdmin()}));
+  if(adm.tab==='offer')paneOffer(o);else if(adm.tab==='apps')paneApps(o);else if(adm.tab==='board')paneBoard(o);else paneDraw(o);
+}
+
+function paneOffer(o){
+  o=o||{winnersCount:4,rulesUrl:''};
+  const p=$('#pane');
+  p.innerHTML=`<form class="card" id="of"><h2>${o.id?'অফার সম্পাদনা':'নতুন অফার'}</h2>
+  <label>শিরোনাম</label><input type="text" id="t" value="${esc(o.title||'')}" maxlength="100">
+  <label>বিবরণ</label><textarea id="d" maxlength="400">${esc(o.description||'')}</textarea>
+  <label>ইংরেজি শিরোনাম <small>(ঐচ্ছিক, পাবলিক পেজ ইংরেজিতে থাকলে এটা দেখাবে)</small></label><input type="text" id="te" value="${esc(o.titleEn||'')}" maxlength="100">
+  <label>ইংরেজি বিবরণ <small>(ঐচ্ছিক)</small></label><textarea id="de" maxlength="400">${esc(o.descriptionEn||'')}</textarea>
+  <label>কতজন নির্বাচিত হবে</label><input type="number" id="n" min="1" value="${o.winnersCount||4}">
+  <label>নিয়মাবলি লিংক</label><input type="url" id="ru" value="${esc(o.rulesUrl||'')}" placeholder="https://…">
+  <label>আবেদন শেষ</label><input type="datetime-local" id="d1" value="${toLocalInput(o.applyEnd)}">
+  <label>বাছাইয়ের তারিখ</label><input type="datetime-local" id="d2" value="${toLocalInput(o.drawDate)}">
+  <label>বিজয়ীর তথ্য জমা শেষ</label><input type="datetime-local" id="d3" value="${toLocalInput(o.detailsEnd)}">
+  <label>আগের ডেলিভারি করা অ্যাপ <small>(পাবলিক পেজে দেখাবে। প্রতি লাইনে: নাম | আইকনের লিংক | অ্যাপের লিংক)</small></label><textarea id="sc" maxlength="1500">${esc((o.showcase||[]).map(x=>[x.n,x.i||'',x.u||''].join(' | ')).join('\n'))}</textarea>
+  <div class="row" style="margin-top:16px"><button class="btn" type="submit">সেভ করুন</button>
+  ${o.id&&o.status!=='open'?'<button type="button" class="btn gold" id="open">চালু করুন</button>':''}
+  ${o.id&&o.status==='open'?'<button type="button" class="btn ghost" id="close">বন্ধ করুন</button>':''}</div>
+  ${o.id?`<p class="mut" style="margin-top:12px">পাবলিক লিংক: <b>${esc(location.href.split('#')[0])}</b></p>`:''}</form>${o.id?pubStatsCard(o)+auditCard(o):''}${archiveCard()}`;
+  if(o.id)bindPubStats(o);
+  $('#of').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const a=new Date($('#d1').value).getTime(),b=new Date($('#d2').value).getTime(),c=new Date($('#d3').value).getTime();
+    if(!v('t')||!a||!b||!c||!(+v('n')>0)){toast('শিরোনাম, সংখ্যা ও ৩টি তারিখ দিন');return}
+    if(!(a<=b&&b<=c)){toast('তারিখের ক্রম: আবেদন শেষ → বাছাই → তথ্য জমা শেষ');return}
+    const data={title:v('t'),description:v('d'),titleEn:v('te'),descriptionEn:v('de'),winnersCount:+v('n'),rulesUrl:v('ru'),showcase:parseShow(v('sc')),applyEnd:a,drawDate:b,detailsEnd:c,updatedAt:serverTimestamp()};
+    try{
+      if(o.id)await updateDoc(doc(db,'offers',o.id),data);
+      else{const r=await addDoc(collection(db,'offers'),{...data,status:'draft',drawn:false,createdAt:serverTimestamp()});adm.cur=r.id;toast('খসড়া সেভ হয়েছে — এবার নিচের "চালু করুন" বাটন চাপুন')}
+      if(o.id){toast('সেভ হয়েছে');await audit('অফার সেভ')}await loadOffers();drawAdmin();
+    }catch(x){toast('সেভ হয়নি: '+(x.code||x.message))}
+  });
+  $$('[data-go]').forEach(b=>b.addEventListener('click',()=>{adm.cur=b.dataset.go;drawAdmin()}));
+  $('#open')?.addEventListener('click',async()=>{
+    try{const b=writeBatch(db);adm.offers.filter(x=>x.status==='open').forEach(x=>b.update(doc(db,'offers',x.id),{status:'closed'}));b.update(doc(db,'offers',o.id),{status:'open'});await b.commit();toast('অফার চালু');await loadOffers();drawAdmin()}catch(x){toast('হয়নি: '+x.code)}
+  });
+  $('#close')?.addEventListener('click',async()=>{if(!confirm('অফার বন্ধ করবেন? এরপর কেউ আর এই অফার দেখবে না।'))return;try{await updateDoc(doc(db,'offers',o.id),{status:'closed'});await loadOffers();drawAdmin()}catch(x){toast('হয়নি: '+x.code)}});
+}
+
+function dl(a){
+  const rows=(pairs)=>pairs.filter(([,x])=>x!==undefined&&x!=='').map(([k,x])=>`<dt>${k}</dt><dd>${esc(x)}</dd>`).join('');
+  const s2=a.step2;
+  return `<div class="info"><dl>${rows([['Gmail',a.email],['অ্যাপের নাম',a.appName],['কী করবে',a.appPurpose],['ফিচার ১',a.feature1],['ফিচার ২',a.feature2],['ফিচার ৩',a.feature3],['কার জন্য',a.targetUsers],['ধরন',a.appType+(a.appTypeOther?' — '+a.appTypeOther:'')],['ইন্টারনেট',a.needsInternet],['কার জন্য ব্যবহার',a.usedFor],['ফেসবুক',a.fbLink]])}</dl>
+  ${s2?`<h3>ধাপ ২ তথ্য</h3><dl>${rows([['পুরো নাম',s2.fullName],['WhatsApp',s2.whatsapp],['বিকল্প',s2.altContact],['যোগাযোগের সময়',s2.contactTime],['চূড়ান্ত নাম',s2.finalName],['বর্ণনা',s2.description],['স্ক্রিন',(s2.screens||[]).map(x=>x.name+(x.desc?' — '+x.desc:'')).join('\n')],['ফিচার বিস্তারিত',(s2.featureDetails||[]).map((x,i)=>(i+1)+'. '+x).join('\n\n')],['ডেটা',s2.dataInfo],['ইন্টারনেট',s2.needsInternet],['লগইন',s2.needsLogin],['ভাষা',s2.language],['রঙ',s2.color],['থিম',s2.theme],['রেফারেন্স',s2.refLink],['আইকন',s2.iconIdea],['UI',s2.uiStyle],['লোগো লিংক',s2.logoUrl],['স্ক্রিনশট/স্কেচ',(s2.shots||[]).join('\n')]])}</dl>
+  ${s2.logoUrl?`<div style="margin-top:10px"><a href="${esc(s2.logoUrl)}" target="_blank" rel="noopener"><img src="${esc(s2.logoUrl)}" alt="লোগো" style="width:76px;height:76px;border-radius:20px;object-fit:contain;background:#eee"></a></div>`:''}
+  ${(s2.shots||[]).length?`<div class="shots">${s2.shots.map(u=>`<a class="shot" href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="" loading="lazy"></a>`).join('')}</div>`:''}<button class="btn sm ghost" data-copy="${a.id}">তথ্য কপি করুন</button>`:''}</div>`;
+}
+const TAGS=['গুরুত্বপূর্ণ','পরে দেখব','সমস্যা','ভালো আইডিয়া'];
+const bkSel=new Set();
+function paneApps(o){
+  const p=$('#pane');
+  if(!o){p.innerHTML='<div class="card">আগে অফার বানান।</div>';return}
+  const stOpts=Object.entries(STATUS).filter(([k])=>k!=='applied').map(([k,t])=>`<option value="${k}">${t}</option>`).join('');
+  p.innerHTML=`${chartHtml()}<div class="card"><div class="row"><input type="text" id="q" class="grow" placeholder="নাম, Gmail বা অ্যাপের নামে খুঁজুন">
+  <select id="flt"><option value="all">সব</option><option value="sel">নির্বাচিত</option><option value="wait">অপেক্ষমাণ</option><option value="rest">বাকিরা</option>${Object.entries(STATUS).filter(([k])=>k!=='applied').map(([k,t])=>`<option value="s:${k}">${t}</option>`).join('')}</select>
+  <select id="tagf"><option value="">সব ট্যাগ</option>${TAGS.map(t=>`<option>${t}</option>`).join('')}</select>
+  <button class="btn sm ghost" id="csv">CSV</button><button class="btn sm ghost" id="bk">JSON ব্যাকআপ</button></div>
+  <div class="row" style="margin-top:10px"><select id="bst">${stOpts}</select><button class="btn sm gold" id="bapply">টিক দেওয়াদের স্ট্যাটাস বদলান</button><button class="btn sm ghost" id="ball">নির্বাচিত সবাইকে বাছুন</button></div></div><div id="list"></div>`;
+  const row=a=>{
+    const wa=waLink(a.step2?.whatsapp,a.name);
+    return `<div class="arow">${a.selected?`<input type="checkbox" class="bkc" data-bk="${a.id}" aria-label="বাছুন" ${bkSel.has(a.id)?'checked':''}>`:'<span></span>'}<details><summary><span><b>${esc(a.name||a.email)}</b> — ${esc(a.appName)}</span><span>${a.tag?`<span class="pill">${esc(a.tag)}</span> `:''}<span class="pill x">মান ${bn(qScore(a))}</span> ${a.selected?`<span class="pill g">নির্বাচিত</span> <span class="pill">${STATUS[a.workStatus]||''}</span>`:o.drawn?'<span class="pill x">বাকি</span>':'<span class="pill x">আবেদিত</span>'}</span></summary>
+    <div class="det">${a.selected?`<label>স্ট্যাটাস</label><select data-st="${a.id}">${Object.entries(STATUS).filter(([k])=>k!=='applied').map(([k,t])=>`<option value="${k}" ${k===a.workStatus?'selected':''}>${t}</option>`).join('')}</select>`:''}
+    <label>ট্যাগ</label><select data-tag><option value="">—</option>${TAGS.map(t=>`<option ${a.tag===t?'selected':''}>${t}</option>`).join('')}</select>
+    <label>নোট (শুধু আপনি দেখবেন)</label><textarea data-note maxlength="1000">${esc(a.adminNote||'')}</textarea>
+    ${a.selected?`<label>বিজয়ীকে বার্তা</label><textarea data-msg maxlength="600">${esc(a.adminMsg||'')}</textarea>
+    <label>কাজের অগ্রগতি (০–১০০)</label><input type="number" min="0" max="100" data-pg value="${typeof a.progress==='number'?a.progress:''}">
+    <label>প্রিভিউ লিংক</label><input type="url" data-pv value="${esc(a.previewUrl||'')}" placeholder="https://…">
+    <label>APK লিংক</label><input type="url" data-apk value="${esc(a.apkUrl||'')}" placeholder="https://…">`:''}
+    <div class="acts"><button class="btn sm" data-sv="${a.id}">সেভ করুন</button>${wa?`<a class="btn sm ghost" href="${esc(wa)}" target="_blank" rel="noopener">WhatsApp</a>`:''}</div>
+    ${dl(a)}</div></details></div>`;
+  };
+  let shown=[];
+  const paint=()=>{
+    const q=v('q').toLowerCase(),f=$('#flt').value,tg=$('#tagf').value;
+    let L=adm.apps.filter(a=>(`${a.name} ${a.email} ${a.appName}`).toLowerCase().includes(q));
+    if(f==='sel')L=L.filter(a=>a.selected);else if(f==='rest')L=L.filter(a=>o.drawn&&!a.selected);else if(f==='wait')L=L.filter(a=>o.drawn&&!a.selected).sort((x,y)=>x.order-y.order).slice(0,3);else if(f.startsWith('s:'))L=L.filter(a=>a.workStatus===f.slice(2));
+    if(tg)L=L.filter(a=>a.tag===tg);
+    L.sort((x,y)=>(x.order??1e9)-(y.order??1e9));
+    shown=L;
+    $('#list').innerHTML=L.map(row).join('')||'<div class="card mut">কিছু পাওয়া যায়নি।</div>';
+    $$('.bkc').forEach(c=>c.addEventListener('change',()=>{c.checked?bkSel.add(c.dataset.bk):bkSel.delete(c.dataset.bk)}));
+    $$('[data-st]').forEach(s=>s.addEventListener('change',async()=>{
+      try{await updateDoc(doc(db,'offers',o.id,'applications',s.dataset.st),{workStatus:s.value});const a=adm.apps.find(z=>z.id===s.dataset.st);a.workStatus=s.value;syncStats();audit(`${a.email}: স্ট্যাটাস → ${STATUS[s.value]}`);toast('স্ট্যাটাস বদলেছে')}catch(x){toast('হয়নি: '+x.code)}
+    }));
+    $$('[data-sv]').forEach(b=>b.addEventListener('click',async()=>{
+      const a=adm.apps.find(z=>z.id===b.dataset.sv),d=b.closest('.det'),g=s=>d.querySelector(s);
+      const priv={tag:g('[data-tag]').value,adminNote:g('[data-note]').value.trim()};
+      const data={};
+      if(a.selected){
+        data.adminMsg=g('[data-msg]').value.trim();
+        const pg=g('[data-pg]').value;data.progress=pg===''?0:Math.max(0,Math.min(100,Math.round(+pg)||0));
+        const pvR=g('[data-pv]').value.trim(),apR=g('[data-apk]').value.trim();
+        data.previewUrl=safeUrl(pvR);data.apkUrl=safeUrl(apR);
+        if((pvR&&!data.previewUrl)||(apR&&!data.apkUrl)){toast('লিংক https:// দিয়ে শুরু হতে হবে');return}
+      }
+      try{await setDoc(doc(db,'offers',o.id,'private','n_'+a.id),priv);Object.assign(a,priv);if(Object.keys(data).length){await updateDoc(doc(db,'offers',o.id,'applications',a.id),data);Object.assign(a,data)}audit(`${a.email}: তথ্য সেভ`);toast('সেভ হয়েছে')}catch(x){toast('হয়নি: '+x.code)}
+    }));
+    $$('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const t=b.closest('.info').innerText;try{await navigator.clipboard.writeText(t);toast('কপি হয়েছে')}catch{toast('কপি হয়নি')}}));
+  };
+  $('#q').addEventListener('input',paint);$('#flt').addEventListener('change',paint);$('#tagf').addEventListener('change',paint);paint();
+  $('#ball').addEventListener('click',()=>{shown.filter(a=>a.selected).forEach(a=>bkSel.add(a.id));paint()});
+  $('#bapply').addEventListener('click',async()=>{
+    if(!bkSel.size){toast('আগে নির্বাচিতদের টিক দিন');return}
+    const st=$('#bst').value;
+    if(!confirm(`${bkSel.size} জনের স্ট্যাটাস "${STATUS[st]}" করবেন?`))return;
+    try{
+      const ids=[...bkSel];
+      for(let i=0;i<ids.length;i+=400){const b=writeBatch(db);ids.slice(i,i+400).forEach(id=>b.update(doc(db,'offers',o.id,'applications',id),{workStatus:st}));await b.commit()}
+      ids.forEach(id=>{const a=adm.apps.find(z=>z.id===id);if(a)a.workStatus=st});syncStats();
+      audit(`বাল্ক স্ট্যাটাস: ${ids.length} জন → ${STATUS[st]}`);bkSel.clear();toast('স্ট্যাটাস বদলেছে');paint();
+    }catch(x){toast('হয়নি: '+x.code)}
+  });
+  $('#bk').addEventListener('click',()=>{
+    const j=JSON.stringify({exportedAt:new Date().toISOString(),offer:o,applications:adm.apps},null,2);
+    const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([j],{type:'application/json'}));l.download='backup-'+o.id+'.json';l.click();
+    audit('JSON ব্যাকআপ নামানো');
+  });
+  $('#csv').addEventListener('click',()=>{
+    const H=['name','email','appName','appPurpose','feature1','feature2','feature3','targetUsers','appType','needsInternet','usedFor','fbLink','selected','order','workStatus','whatsapp','finalName'];
+    const q=s=>{let t=String(s??'');if(/^[=+\-@\t\r]/.test(t))t="'"+t;return '"'+t.replace(/"/g,'""')+'"'};
+    const csv='\ufeff'+[H.join(',')].concat(adm.apps.map(a=>H.map(h=>q(h==='whatsapp'?a.step2?.whatsapp:h==='finalName'?a.step2?.finalName:a[h])).join(','))).join('\n');
+    const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));l.download='applications.csv';l.click();
+  });
+}
+
+/* অ্যাডমিন: কানবান বোর্ড (নির্বাচিতদের কাজের ধাপ) */
+function paneBoard(o){
+  const p=$('#pane');
+  if(!o){p.innerHTML='<div class="card">আগে অফার বানান।</div>';return}
+  const win=adm.apps.filter(a=>a.selected);
+  if(!win.length){p.innerHTML='<div class="card mut">বাছাইয়ের পর নির্বাচিতরা এখানে ধাপ অনুযায়ী দেখা যাবে।</div>';return}
+  const cols=Object.entries(STATUS).filter(([k])=>k!=='applied');
+  p.innerHTML=`<div class="board">${cols.map(([k,t])=>{const L=win.filter(a=>a.workStatus===k);return `<div class="col"><b>${t} (${bn(L.length)})</b>${L.map(a=>`<div class="kc"><b>${esc(a.step2?.finalName||a.appName)}</b><small class="mut">${esc(a.name||a.email)}</small><select data-mv="${a.id}" aria-label="ধাপ বদলান">${cols.map(([kk,tt])=>`<option value="${kk}" ${kk===k?'selected':''}>${tt}</option>`).join('')}</select></div>`).join('')||'<small class="mut">খালি</small>'}</div>`}).join('')}</div>`;
+  $$('[data-mv]').forEach(s=>s.addEventListener('change',async()=>{
+    try{await updateDoc(doc(db,'offers',o.id,'applications',s.dataset.mv),{workStatus:s.value});const a=adm.apps.find(z=>z.id===s.dataset.mv);a.workStatus=s.value;syncStats();audit(`${a.email}: বোর্ডে → ${STATUS[s.value]}`);paneBoard(o)}catch(x){toast('হয়নি: '+x.code)}
+  }));
+}
+
+const archiveCard=()=>`<div class="card"><h2>অফার আর্কাইভ</h2>${adm.offers.map(x=>`<div class="row" style="margin-top:8px"><span class="grow"><b>${esc(x.title)}</b><br><small class="mut">${x.status==='open'?'চালু':x.status==='closed'?'বন্ধ':'খসড়া'}, আবেদন শেষ ${fmt(x.applyEnd)}${x.drawn?', বাছাই হয়েছে':''}</small></span><button class="btn sm ghost" data-go="${x.id}" ${x.id===adm.cur?'disabled':''}>খুলুন</button></div>`).join('')||'<p class="mut">এখনো কোনো অফার নেই।</p>'}</div>`;
+const auditCard=o=>`<div class="card"><h2>অ্যাডমিন লগ</h2>${(adm.meta.audit||[]).length?(adm.meta.audit||[]).slice().reverse().slice(0,30).map(e=>`<div class="mut" style="font-size:14px;margin-top:6px"><b>${fmt(e.t)}</b>: ${esc(e.a)}</div>`).join(''):'<p class="mut">এখনো কিছু নেই।</p>'}</div>`;
+
+function rand(n){const m=Math.floor(0x100000000/n)*n,b=new Uint32Array(1);do{crypto.getRandomValues(b)}while(b[0]>=m);return b[0]%n}
+function paneDraw(o){
+  const p=$('#pane');
+  if(!o){p.innerHTML='<div class="card">আগে অফার বানান।</div>';return}
+  const link=location.href.split('#')[0];
+  const win=adm.apps.filter(a=>a.selected),rest=adm.apps.filter(a=>!a.selected);
+  p.innerHTML=`<div class="card"><h2>🎲 র‍্যান্ডম বাছাই</h2>
+  <p class="mut">মোট আবেদন: <b>${adm.apps.length}</b> জন। ${o.drawn?`বাছাই হয়ে গেছে (নির্বাচিত ${win.length} জন)। ফলাফল স্থির, আবার চালানো যাবে না।`:'চালালে ফলাফল স্থির হয়ে যাবে।'}</p>
+  <div class="row" style="margin-top:10px"><input type="number" id="N" min="1" value="${o.winnersN||o.winnersCount||4}" style="width:90px"><button class="btn gold" id="go" ${o.drawn||!adm.apps.length?'disabled':''}>র‍্যান্ডম বাছাই করুন</button>
+  ${o.drawn?'<button class="btn ghost" id="next">পরের জনকে সুযোগ দিন</button>':''}</div>
+  ${o.drawn?`<div class="row" style="margin-top:10px"><button class="btn sm ghost" id="pub">${o.winnersList?.length?'তালিকা হালনাগাদ':'নির্বাচিতদের তালিকা প্রকাশ'}</button>${o.winnersList?.length?'<button class="btn sm ghost" id="unpub">তালিকা সরান</button>':''}<button class="btn sm ghost" id="vf">প্রমাণ কোড মিলান</button></div>`:''}
+  ${o.drawn?`<h3>নির্বাচিত</h3>${win.sort((a,b)=>a.order-b.order).map(a=>`<div>• ${esc(a.name)} — ${esc(a.email)} <span class="pill">${STATUS[a.workStatus]}</span></div>`).join('')}`:''}</div>
+  <div class="card"><h2>📧 মেইল</h2><p class="mut">Gmail-এ সবার ঠিকানা BCC-তে বসে খুলবে, আপনি শুধু Send চাপবেন। বাছাইয়ের আগে মেইল পাঠানো যাবে না।</p>
+  <label>বিজয়ীদের মেইল</label><textarea id="wm" style="min-height:140px"></textarea>
+  <div class="row" style="margin-top:8px"><button class="btn sm" id="wg" ${o.drawn?'':'disabled'}>Gmail-এ খুলুন (${win.length} জন)</button><button class="btn sm ghost" id="wc" ${o.drawn?'':'disabled'}>ঠিকানা কপি</button></div>
+  <label>বাকিদের মেইল</label><textarea id="rm" style="min-height:120px"></textarea>
+  <div class="row" style="margin-top:8px"><button class="btn sm" id="rg" ${o.drawn?'':'disabled'}>Gmail-এ খুলুন (${rest.length} জন)</button><button class="btn sm ghost" id="rc" ${o.drawn?'':'disabled'}>ঠিকানা কপি</button></div>
+  <div class="row" style="margin-top:12px"><button class="btn sm gold" id="tsv">মেইল টেমপ্লেট সেভ</button><button class="btn sm ghost" id="trs">ডিফল্টে ফেরান</button></div></div>`;
+  $('#wm').value=adm.meta.tplWin||`অভিনন্দন! 🎉\n\n"${o.title}" অফারে আপনি নির্বাচিত হয়েছেন।\n\nআবেদনের সময় যে Gmail দিয়ে লগইন করেছিলেন, সেই Gmail দিয়ে এই লিংকে ঢুকে ${fmt(o.detailsEnd)}-এর মধ্যে ধাপ ২ ফর্ম পূরণ করুন:\n${link}\n\n— HafijulNovaLabs`;
+  $('#rm').value=adm.meta.tplRest||`আবেদনের জন্য ধন্যবাদ।\n\n"${o.title}" অফারে এবার আপনি নির্বাচিত হননি। পরের অফারে আবার চেষ্টা করুন।\n\nফলাফল দেখতে: ${link}\n\n— HafijulNovaLabs`;
+  const gm=(list,body)=>{const e=list.map(a=>a.email).join(',');window.open(`https://mail.google.com/mail/?view=cm&fs=1&bcc=${encodeURIComponent(e)}&su=${encodeURIComponent(o.title+' — ফলাফল')}&body=${encodeURIComponent(body)}`,'_blank')};
+  const cp=async list=>{try{await navigator.clipboard.writeText(list.map(a=>a.email).join(', '));toast('ঠিকানা কপি হয়েছে')}catch{toast('কপি হয়নি')}};
+  $('#wg').onclick=()=>gm(win,$('#wm').value);$('#rg').onclick=()=>gm(rest,$('#rm').value);
+  $('#wc').onclick=()=>cp(win);$('#rc').onclick=()=>cp(rest);
+  $('#tsv').addEventListener('click',async()=>{try{const d={tplWin:$('#wm').value,tplRest:$('#rm').value};await setDoc(doc(db,'offers',o.id,'private','meta'),d,{merge:true});Object.assign(adm.meta,d);audit('মেইল টেমপ্লেট সেভ');toast('টেমপ্লেট সেভ হয়েছে')}catch(x){toast('হয়নি: '+x.code)}});
+  $('#trs').addEventListener('click',async()=>{try{const d={tplWin:'',tplRest:''};await setDoc(doc(db,'offers',o.id,'private','meta'),d,{merge:true});Object.assign(adm.meta,d);toast('ডিফল্টে ফেরানো হয়েছে');drawAdmin()}catch(x){toast('হয়নি: '+x.code)}});
+  $('#pub')?.addEventListener('click',async()=>{
+    const names=win.slice().sort((a,b)=>a.order-b.order).map(a=>a.name||'নাম নেই');
+    if(!confirm(`${names.length} জনের নাম পাবলিক পেজে সবাই দেখতে পাবে। প্রকাশ করবেন?`))return;
+    try{await updateDoc(doc(db,'offers',o.id),{winnersList:names});o.winnersList=names;audit('নির্বাচিতদের তালিকা প্রকাশ');toast('প্রকাশ হয়েছে');drawAdmin()}catch(x){toast('হয়নি: '+x.code)}
+  });
+  $('#unpub')?.addEventListener('click',async()=>{try{await updateDoc(doc(db,'offers',o.id),{winnersList:[]});o.winnersList=[];audit('তালিকা সরানো');drawAdmin()}catch(x){toast('হয়নি: '+x.code)}});
+  $('#vf')?.addEventListener('click',async()=>{
+    if(!o.proofHash){toast('এই বাছাইয়ে প্রমাণ কোড সংরক্ষিত নেই');return}
+    const ids=adm.apps.filter(a=>a.order).sort((a,b)=>a.order-b.order).map(a=>a.id);
+    toast((await sha(o.id+'|'+ids.join(',')))===o.proofHash?'কোড মিলেছে: ফলাফল অপরিবর্তিত':'কোড মেলেনি: ফলাফল বদলেছে');
+  });
+  $('#go')?.addEventListener('click',async()=>{
+    const n=Math.min(+v('N')||0,adm.apps.length);
+    if(n<1){toast('সংখ্যা দিন');return}
+    if(!confirm(`${adm.apps.length} জনের মধ্যে র‍্যান্ডমভাবে ${n} জন বাছাই হবে। ফলাফল স্থির, আবার চালানো যাবে না। চালাবেন?`))return;
+    $('#go').disabled=true;
+    const arr=adm.apps.slice();for(let i=arr.length-1;i>0;i--){const j=rand(i+1);[arr[i],arr[j]]=[arr[j],arr[i]]}
+    try{
+      await spin(arr.map(a=>a.name||a.email));
+      for(let i=0;i<arr.length;i+=400){const b=writeBatch(db);arr.slice(i,i+400).forEach((a,k)=>{const idx=i+k;b.update(doc(db,'offers',o.id,'applications',a.id),{order:idx+1,selected:idx<n,workStatus:idx<n?'info_pending':'applied'})});await b.commit()}
+      const proofHash=await sha(o.id+'|'+arr.map(a=>a.id).join(','));
+      await updateDoc(doc(db,'offers',o.id),{drawn:true,winnersN:n,drawnAt:serverTimestamp(),proofHash});
+      await audit(`বাছাই: ${arr.length} জনের মধ্যে ${n} জন`);
+      toast('বাছাই সম্পন্ন');await loadOffers();drawAdmin();
+    }catch(x){toast('বাছাই ব্যর্থ: '+(x.code||x.message));$('#go').disabled=false}
+  });
+  $('#next')?.addEventListener('click',async()=>{
+    const nx=rest.sort((a,b)=>a.order-b.order)[0];
+    if(!nx){toast('অপেক্ষমাণ কেউ নেই');return}
+    if(!confirm(`পরের জন: ${nx.name} (${nx.email})। সুযোগ দেবেন?`))return;
+    try{await updateDoc(doc(db,'offers',o.id,'applications',nx.id),{selected:true,workStatus:'info_pending'});audit('অপেক্ষমাণকে সুযোগ: '+nx.email);toast('সুযোগ দেওয়া হয়েছে');drawAdmin()}catch(x){toast('হয়নি: '+x.code)}
+  });
+}
+
+
+/* ================= শুরু ================= */
+onAuthStateChanged(auth,u=>{user=u;isAdmin=!!u&&u.emailVerified&&ADMIN_EMAILS.includes((u.email||'').toLowerCase());renderWho(user,isAdmin,'admin');renderAdmin()});
+
+
+</script>
+</body>
+</html>
