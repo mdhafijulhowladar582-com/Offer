@@ -3,7 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#eeedfc">
+<meta name="theme-color" content="#eeedfc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0f2c" media="(prefers-color-scheme: dark)">
+<meta name="description" content="আবেদন করুন, র‍্যান্ডম বাছাইয়ে নির্বাচিত হলে বিনামূল্যে নিজের অ্যান্ড্রয়েড অ্যাপ পান। Apply for a free custom Android app — HafijulNovaLabs.">
+<link rel="canonical" href="https://mdhafijulhowladar582-com.github.io/Offer/">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HafijulNovaLabs">
+<meta property="og:title" content="ফ্রি অ্যান্ড্রয়েড অ্যাপ অফার — HafijulNovaLabs">
+<meta property="og:description" content="আবেদন করুন, র‍্যান্ডম বাছাইয়ে নির্বাচিত হলে বিনামূল্যে নিজের অ্যান্ড্রয়েড অ্যাপ পান।">
+<meta property="og:url" content="https://mdhafijulhowladar582-com.github.io/Offer/">
+<meta property="og:image" content="https://mdhafijulhowladar582-com.github.io/Offer/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ফ্রি অ্যান্ড্রয়েড অ্যাপ অফার — HafijulNovaLabs">
+<meta name="twitter:image" content="https://mdhafijulhowladar582-com.github.io/Offer/og-image.png">
 <title>ফ্রি অ্যান্ড্রয়েড অ্যাপ অফার — HafijulNovaLabs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,7 +157,55 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--violet);box
 .dock[hidden]{display:none}
 .dock .btn{width:100%;max-width:420px;pointer-events:auto;box-shadow:0 10px 28px #15163a40}
 
+.tl{list-style:none;padding:0;margin:14px 0 0}
+.tl li{position:relative;padding:0 0 16px 34px;font-weight:600;color:var(--mut)}
+.tl li::before{content:'';position:absolute;left:3px;top:6px;width:16px;height:16px;border-radius:50%;border:2.5px solid #b3aee8;background:var(--canvas)}
+.tl li:not(:last-child)::after{content:'';position:absolute;left:10px;top:24px;bottom:-4px;width:3px;border-radius:2px;background:var(--tint)}
+.tl li.done{color:inherit}
+.tl li.done::before{background:var(--violet);border-color:var(--violet)}
+.tl li.on{color:inherit}
+.tl li.on::before{background:var(--orange);border-color:var(--orange);box-shadow:0 0 0 5px #ff6b2c33}
+.tl small{display:block;font-weight:400;color:var(--mut);font-size:13.5px}
+.idea-box{background:var(--canvas)!important;margin-top:10px}
+.idea-box .chips{padding:0 14px 14px}
+.sw{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.sw button{width:34px;height:34px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line);cursor:pointer}
+.sw input[type=color]{width:44px;height:34px;padding:2px;border:1.5px solid var(--line);border-radius:12px;background:#fff;cursor:pointer}
+.shots{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.shot{position:relative;width:84px;height:84px;border-radius:14px;overflow:hidden;background:var(--canvas)}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot button{position:absolute;top:3px;right:3px;width:24px;height:24px;border-radius:50%;border:0;background:#15163acc;color:#fff;font-size:15px;line-height:1;cursor:pointer}
+.spin{position:fixed;inset:0;z-index:20;background:#0e0f2cf2;color:#fff;display:grid;place-content:center;text-align:center;padding:20px}
+.spin small{color:#b5b2ea;font-size:15px}
+.spin b{display:block;font-size:30px;line-height:1.4;margin-top:10px;min-height:2.8em;word-break:break-word}
+.bars{display:flex;align-items:flex-end;gap:6px;height:96px;margin-top:22px}
+.bars div{flex:1;background:var(--orange);border-radius:6px 6px 2px 2px;min-height:3px;position:relative}
+.bars div span{position:absolute;top:-19px;left:0;right:0;text-align:center;font-size:11.5px;color:var(--mut);font-weight:600}
+.barl{display:flex;gap:6px;font-size:11.5px;color:var(--mut);margin-top:4px}
+.barl span{flex:1;text-align:center}
+.faq details{background:var(--canvas)!important;margin:6px 0}
+.faq summary{font-weight:700;font-size:15.5px}
+.faq p{padding:0 18px 14px;font-size:15px}
+.show{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:12px;margin-top:10px}
+.show a{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;text-decoration:none;color:inherit;font-size:13px;font-weight:600;line-height:1.3}
+.show img{width:64px;height:64px;border-radius:18px;object-fit:cover;background:var(--tint)}
+.logo-up{display:flex;gap:14px;align-items:center}
+.logo-pv{width:76px;height:76px;flex:none;border-radius:22px;border:2px dashed var(--line);display:grid;place-items:center;color:var(--mut);font-size:26px;overflow:hidden;background:var(--canvas)}
+.logo-pv img{width:100%;height:100%;object-fit:contain}
+.logo-pv.up{border-style:solid;border-color:var(--orange)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.congrats .cd-l{color:#5a2a10;margin-top:14px}
+.congrats .cd div{background:#15163a14;border-color:#15163a24}
+.congrats .cd b{color:var(--ink)}
+.congrats .cd span{color:#5a2a10}
+
 /* admin */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+@media(min-width:560px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:#fff;border-radius:18px;padding:12px 16px}
+.stat b{display:block;font-size:26px;line-height:1.3;font-weight:800}
+.stat span{font-size:13.5px;color:var(--mut)}
+.stat.hi{background:var(--ink);color:#fff}.stat.hi span{color:#b5b2ea}
 .tabs{display:flex;gap:4px;padding:4px;margin-bottom:16px;background:#dedbfb;border-radius:999px;overflow-x:auto;max-width:100%;width:max-content}
 .tabs button{border:0;background:transparent;color:#4a4780;padding:8px 18px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
 .tabs button.on{background:var(--ink);color:#fff}
@@ -161,7 +226,42 @@ summary::-webkit-details-marker{display:none}
   @keyframes sh{to{background-position:-200% 0}}
   .ok-ic{animation:pop .5s both cubic-bezier(.2,1.5,.4,1)}
 }
+[hidden]{display:none!important}
+.wnav{display:flex;gap:10px;margin-top:22px}
+.wnav .btn{flex:1 1 0}
+.wnav .btn.ghost{flex:0 0 auto}
+@media(prefers-reduced-motion:no-preference){.stp{animation:stp .28s ease-out}@keyframes stp{from{opacity:0;transform:translateX(14px)}}}
 @media(max-width:480px){.hero h1{font-size:29px}.card{padding:22px 16px}}
+
+/* ডার্ক মোড: ফোনের সেটিং অনুযায়ী নিজে বদলায় */
+@media(prefers-color-scheme:dark){
+:root{color-scheme:dark;--canvas:#0e0f2c;--mut:#a9a6d6;--tint:#2a2b66;--line:#3a3c7a;--ok:#6fe0b0}
+body,.brand,.who span,.track .d,.chips button{color:#eceaff}
+a,h3{color:#a79eff}
+.bar{background:#0e0f2ce6}
+.card,details,.stat,.prog{background:#181a4a}
+.hero{background:radial-gradient(420px 280px at 88% -10%,#5040f066,transparent 70%),radial-gradient(320px 220px at -5% 105%,#ff6b2c26,transparent 70%),#171845;border:1px solid #2b2c63}
+input[type=text],input[type=url],input[type=tel],input[type=number],input[type=datetime-local],select,textarea{background-color:#12133a;color:#eceaff}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23eceaff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.chk input{background-color:#12133a;border-color:#7a76c0}
+.chips button{background:#12133a}
+.chips button[aria-pressed=true]{background:#eceaff;border-color:#eceaff;color:#15163a}
+.track i{background:#181a4a;border-color:#6f6bb0}
+.track li.done i{background:#eceaff;border-color:#eceaff}
+.track li.done:not(:last-child)::after{background:#eceaff}
+.sc{background:#22245a}
+.ico{color:#b9b3ff}.ico.w{background:#4a2410;color:#ffb594}
+.msg{color:#c9c6ff}.msg.ok{background:#0f3a2a;color:#8ee6bf}.msg.bad{background:#4a1a15;color:#ffb4aa}.msg.warn{background:#4a3a0a;color:#ffe08a}
+.pill{color:#c9c6ff}.pill.g{background:#4a2410;color:#ffb594}.pill.ok{background:#0f3a2a;color:#8ee6bf}.pill.x{background:#26275e;color:#a9a6d6}
+.tabs{background:#1c1e52}.tabs button{color:#b5b2ea}.tabs button.on{background:#eceaff;color:#15163a}
+.btn.ghost:hover{background:#3a3b80}
+.btn.gold{background:#eceaff;color:#15163a}.btn.gold:hover{background:#fff}
+.stat.hi,.toast{background:#2b2c63}
+.det{border-color:#2a2b66}
+.ok-ic{background:#0f3a2a}
+.dock{background:linear-gradient(#0e0f2c00,#0e0f2c 55%)}
+.sk i{background:linear-gradient(90deg,#2a2b66 25%,#35367a 50%,#2a2b66 75%);background-size:200% 100%}
+}
 </style>
 </head>
 <body>
@@ -257,6 +357,7 @@ function chipify(id,root){
   [...s.options].filter(o=>o.value).forEach(o=>{
     const b=document.createElement('button');b.type='button';b.textContent=o.value;b.setAttribute('aria-pressed','false');
     b.addEventListener('click',()=>{
+      navigator.vibrate?.(8);
       s.value=o.value;
       $$('button',box).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
       s.dispatchEvent(new Event('change',{bubbles:true}));
@@ -276,6 +377,304 @@ function burst(host){
     host.appendChild(p);
   }
   setTimeout(()=>$$('.cf',host).forEach(e=>e.remove()),3000);
+}
+
+/* ফাঁকা বা অর্থহীন লেখা ধরা (aaaaaa, 123123 ইত্যাদি) */
+function junk(s){
+  s=String(s||'').trim();if(!s)return false;
+  if(/(.)\1{5,}/u.test(s))return true;
+  if(s.length>=20&&new Set([...s.replace(/\s/g,'')]).size<7)return true;
+  if(/^[\d\s\W]+$/u.test(s))return true;
+  return false;
+}
+
+/* আবেদনের অবস্থা: টাইমলাইন ও শতাংশ */
+function timelineHtml(a,o){
+  let idx=0;
+  if(o.drawn&&a.selected)idx={info_pending:1,info_submitted:2,in_progress:3,delivered:4}[a.workStatus]??1;
+  const steps=[['আবেদন জমা','আপনার আবেদন গ্রহণ হয়েছে'],['নির্বাচিত','র‍্যান্ডম বাছাইয়ে আপনি এসেছেন'],['তথ্য জমা','বিস্তারিত ফর্ম পূরণ'],['কাজ চলছে','অ্যাপ তৈরি হচ্ছে'],['ডেলিভারি','অ্যাপ হাতে পেয়েছেন']];
+  const pct=Math.round(idx/(steps.length-1)*100);
+  return `<section class="card"><h2>আপনার আবেদনের অবস্থা</h2>
+  <div class="prog-t">${bn(pct)}% সম্পন্ন</div><div class="prog-bar"><i style="width:${pct}%"></i></div>
+  <ol class="tl">${steps.map(([t,d],i)=>`<li class="${i<idx?'done':i===idx?'on':''}">${t}<small>${d}</small></li>`).join('')}</ol></section>`;
+}
+
+/* আবেদনের রসিদ: ছবি হিসেবে নামে */
+function downloadReceipt(a,o){
+  const W=900,H=620,c=document.createElement('canvas');c.width=W;c.height=H;
+  const x=c.getContext('2d');
+  x.fillStyle='#eeedfc';x.fillRect(0,0,W,H);
+  x.fillStyle='#15163a';x.beginPath();x.roundRect(30,30,W-60,H-60,36);x.fill();
+  const F="'Anek Bangla','Hind Siliguri',system-ui,sans-serif";
+  x.fillStyle='#ff6b2c';x.font='700 26px '+F;x.fillText('আবেদনের রসিদ',70,100);
+  x.fillStyle='#fff';x.font='800 40px '+F;
+  const t=String(o.title||'');x.fillText(t.length>30?t.slice(0,29)+'…':t,70,160);
+  const rows=[['নাম',a.name||'—'],['Gmail',a.email||'—'],['অ্যাপের নাম',a.appName||'—'],['জমার সময়',fmt(a.createdAt?.toMillis?.()||Date.now())],['বাছাইয়ের তারিখ',fmt(o.drawDate)],['আবেদন নম্বর',String(a.uid||'').slice(0,8).toUpperCase()]];
+  rows.forEach(([k,val],i)=>{
+    const y=240+i*58;
+    x.fillStyle='#b5b2ea';x.font='600 22px '+F;x.fillText(k,70,y);
+    x.fillStyle='#fff';x.font='700 26px '+F;
+    let s=String(val);while(x.measureText(s).width>520&&s.length>4)s=s.slice(0,-2);
+    x.fillText(s,290,y);
+  });
+  x.fillStyle='#ffc2a8';x.font='600 20px '+F;x.fillText('ফলাফল দেখতে এই লিংকে লগইন করুন: '+location.host+location.pathname,70,H-70);
+  const l=document.createElement('a');l.href=c.toDataURL('image/png');l.download='application-receipt.png';l.click();
+  toast('রসিদ নামানো হয়েছে');
+}
+
+/* আইডিয়া গ্যালারি: ট্যাপ করলে শুরুর বাক্য বসে যায় */
+const IDEAS=[
+  ['দৈনিক খরচের খাতা','আমি প্রতিদিনের আয়-খরচ সহজে লিখে রাখতে চাই, কিন্তু '],
+  ['পড়ার রুটিন ট্র্যাকার','ছাত্র হিসেবে আমার পড়ার সময় ও বিষয়ের হিসাব রাখা দরকার, কারণ '],
+  ['দোকানের বাকির হিসাব','আমার দোকানে কাস্টমারদের বাকি লিখে রাখতে সমস্যা হয়, তাই '],
+  ['ওয়েবসাইট থেকে অ্যাপ','আমার ওয়েবসাইটটা অ্যান্ড্রয়েড অ্যাপ হিসেবে চালাতে চাই, যাতে '],
+  ['ক্যালকুলেটর/ইউটিলিটি','আমি এমন একটা ক্যালকুলেটর চাই যেটা দিয়ে '],
+  ['অ্যাপ লক ও পিন','ফোনের কিছু তথ্য নিরাপদ রাখতে পিন দিয়ে লক করা অ্যাপ চাই, কারণ ']
+];
+function bindIdeas(f){
+  const box=$('#ideaChips',f);if(!box)return;
+  IDEAS.forEach(([n,p])=>{
+    const b=document.createElement('button');b.type='button';b.textContent=n;
+    b.addEventListener('click',()=>{
+      const an=$('#appName',f),ap=$('#appPurpose',f);
+      if(!an.value.trim()){an.value=n;an.dispatchEvent(new Event('input',{bubbles:true}))}
+      if(!ap.value.trim()){ap.value=p;ap.dispatchEvent(new Event('input',{bubbles:true}))}
+      ap.focus();ap.setSelectionRange(ap.value.length,ap.value.length);navigator.vibrate?.(8);
+    });
+    box.appendChild(b);
+  });
+}
+
+/* ভয়েসে লেখা (Chrome-এ বাংলা সমর্থিত) */
+function bindVoice(f,id){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  const ta=$('#'+id,f),btn=$('#mic_'+id,f);
+  if(!ta||!btn)return;
+  if(!SR){btn.remove();return}
+  let rec=null,on=false;
+  btn.addEventListener('click',()=>{
+    if(on){rec?.stop();return}
+    rec=new SR();rec.lang='bn-BD';rec.interimResults=false;rec.continuous=true;
+    rec.onresult=e=>{
+      let t='';for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)t+=e.results[i][0].transcript+' ';
+      if(t){ta.value=(ta.value+(ta.value&&!/\s$/.test(ta.value)?' ':'')+t).slice(0,+ta.maxLength||600);ta.dispatchEvent(new Event('input',{bubbles:true}))}
+    };
+    rec.onend=()=>{on=false;btn.textContent='🎤 বলে লিখুন'};
+    rec.onerror=()=>{on=false;btn.textContent='🎤 বলে লিখুন'};
+    try{rec.start();on=true;btn.textContent='⏹ থামান'}catch{}
+  });
+}
+
+/* রঙের নমুনা */
+const SWATCHES=['#2f5bea','#5040f0','#0e9f6e','#ff6b2c','#e11d48','#f59e0b','#0f172a','#8b5cf6'];
+function bindSwatches(f){
+  const row=$('#swRow',f),inp=$('#color',f);if(!row||!inp)return;
+  SWATCHES.forEach(h=>{
+    const b=document.createElement('button');b.type='button';b.style.background=h;b.setAttribute('aria-label','রঙ '+h);
+    b.addEventListener('click',()=>{inp.value=h;inp.dispatchEvent(new Event('input',{bubbles:true}));navigator.vibrate?.(8)});
+    row.appendChild(b);
+  });
+  const pk=document.createElement('input');pk.type='color';pk.value='#5040f0';pk.setAttribute('aria-label','নিজের রঙ বাছুন');
+  pk.addEventListener('input',()=>{inp.value=pk.value;inp.dispatchEvent(new Event('input',{bubbles:true}))});
+  row.appendChild(pk);
+}
+
+/* স্ক্রিন স্কেচ / রেফারেন্স ছবি: সর্বোচ্চ ৪টি */
+function toFit(file,max){
+  return new Promise((res,rej)=>{
+    const u=URL.createObjectURL(file),im=new Image();
+    im.onload=()=>{
+      const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');
+      c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+      const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+      URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.85));
+    };
+    im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('bad image'))};
+    im.src=u;
+  });
+}
+function bindShots(f){
+  const file=$('#shFile',f),btn=$('#shBtn',f),grid=$('#shGrid',f),st=$('#shSt',f);
+  if(!file)return;
+  f._shots=[];
+  const paint=()=>{
+    grid.innerHTML='';
+    f._shots.forEach((u,i)=>{
+      const d=document.createElement('div');d.className='shot';
+      d.innerHTML=`<img src="${esc(u)}" alt=""><button type="button" aria-label="মুছুন">×</button>`;
+      d.querySelector('button').addEventListener('click',()=>{f._shots.splice(i,1);paint()});
+      grid.appendChild(d);
+    });
+    btn.hidden=f._shots.length>=4;
+  };
+  btn.addEventListener('click',()=>file.click());
+  file.addEventListener('change',async()=>{
+    const list=[...file.files].slice(0,4-f._shots.length);file.value='';
+    if(!list.length)return;
+    f.dataset.busy='1';btn.disabled=true;
+    for(const fl of list){
+      if(!/^image\//.test(fl.type)||fl.size>10*1024*1024){st.textContent='শুধু ১০ MB-এর কম ছবি দিন';continue}
+      st.textContent='আপলোড হচ্ছে…';
+      try{
+        const data=await toFit(fl,1280);
+        const fd=new FormData();fd.append('image',data.split(',')[1]);fd.append('name','shot-'+user.uid);
+        const r=await fetch('https://api.imgbb.com/1/upload?key='+IMGBB_KEY,{method:'POST',body:fd});
+        const j=await r.json();if(!j.success)throw new Error('upload failed');
+        f._shots.push(j.data.url);paint();st.textContent='';
+      }catch{st.textContent='একটি ছবি আপলোড হয়নি, আবার চেষ্টা করুন'}
+    }
+    delete f.dataset.busy;btn.disabled=false;
+  });
+}
+
+/* অ্যাডমিন: আবেদনের মান স্কোর (০–১০০) */
+function qScore(a){
+  const L=s=>String(s||'').trim().length;
+  let s=Math.min(L(a.appPurpose)/300,1)*35+Math.min(L(a.targetUsers)/150,1)*20;
+  s+=[a.feature1,a.feature2,a.feature3].reduce((t,x)=>t+Math.min(L(x)/80,1),0)/3*30;
+  if(a.fbLink)s+=5;
+  if(![a.appPurpose,a.targetUsers,a.feature1,a.feature2,a.feature3].some(junk))s+=10;
+  return Math.round(s);
+}
+/* অ্যাডমিন: দিনভিত্তিক আবেদন চার্ট */
+function chartHtml(){
+  const days=[];const now=new Date();
+  for(let i=6;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i);days.push({k:d.toDateString(),l:d.toLocaleDateString('bn-BD',{day:'numeric'}),n:0})}
+  adm.apps.forEach(a=>{const ms=a.createdAt?.toMillis?.();if(!ms)return;const d=days.find(x=>x.k===new Date(ms).toDateString());if(d)d.n++});
+  const max=Math.max(1,...days.map(d=>d.n));
+  return `<div class="card"><b>গত ৭ দিনের আবেদন</b><div class="bars">${days.map(d=>`<div style="height:${Math.max(4,d.n/max*100)}%"><span>${d.n?bn(d.n):''}</span></div>`).join('')}</div><div class="barl">${days.map(d=>`<span>${d.l}</span>`).join('')}</div></div>`;
+}
+/* অ্যাডমিন: WhatsApp এক-ট্যাপ লিংক */
+function waLink(num,name){
+  let d=String(num||'').replace(/\D/g,'');if(!d)return '';
+  if(d.startsWith('01'))d='88'+d;
+  const t=encodeURIComponent(`আসসালামু আলাইকুম ${name||''}, HafijulNovaLabs-এর ফ্রি অ্যাপ অফার নিয়ে যোগাযোগ করছি।`);
+  return `https://wa.me/${d}?text=${t}`;
+}
+/* বাছাইয়ের সময় নাম ঘোরার অ্যানিমেশন */
+function spin(names){
+  return new Promise(res=>{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!names.length){res();return}
+    const o=document.createElement('div');o.className='spin';o.innerHTML='<div><small>র‍্যান্ডম বাছাই চলছে…</small><b id="spN"></b></div>';
+    document.body.appendChild(o);const el=$('#spN',o);
+    const iv=setInterval(()=>{el.textContent=names[Math.floor(Math.random()*names.length)]},70);
+    setTimeout(()=>{clearInterval(iv);o.remove();res()},2800);
+  });
+}
+
+/* লোগো আপলোড: ছবি ৫১২×৫১২-এ ছোট করে imgbb-তে যায় */
+const IMGBB_KEY='87b7944db92a53d5008f781a74fcceb3';
+function toSquare(file,size){
+  return new Promise((res,rej)=>{
+    const u=URL.createObjectURL(file),im=new Image();
+    im.onload=()=>{
+      const c=document.createElement('canvas');c.width=c.height=size;
+      const k=Math.min(size/im.width,size/im.height),w=im.width*k,h=im.height*k;
+      c.getContext('2d').drawImage(im,(size-w)/2,(size-h)/2,w,h);
+      URL.revokeObjectURL(u);res(c.toDataURL('image/png'));
+    };
+    im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('bad image'))};
+    im.src=u;
+  });
+}
+function bindLogo(f){
+  const file=$('#lgFile',f),btn=$('#lgBtn',f),st=$('#lgSt',f),pv=$('#lgPv',f),url=$('#logoUrl',f);
+  if(!file)return;
+  btn.addEventListener('click',()=>file.click());
+  file.addEventListener('change',async()=>{
+    const fl=file.files[0];if(!fl)return;
+    if(!/^image\//.test(fl.type)){st.textContent='শুধু ছবির ফাইল দিন';return}
+    if(fl.size>10*1024*1024){st.textContent='ছবি ১০ MB-এর কম হতে হবে';return}
+    f.dataset.busy='1';url.value='';btn.disabled=true;st.textContent='আপলোড হচ্ছে…';
+    try{
+      const data=await toSquare(fl,512);
+      pv.innerHTML='';const im=new Image();im.src=data;im.alt='';pv.appendChild(im);
+      const fd=new FormData();fd.append('image',data.split(',')[1]);fd.append('name','logo-'+user.uid);
+      const r=await fetch('https://api.imgbb.com/1/upload?key='+IMGBB_KEY,{method:'POST',body:fd});
+      const j=await r.json();
+      if(!j.success)throw new Error(j.error?.message||'upload failed');
+      url.value=j.data.url;pv.classList.add('up');st.textContent='আপলোড হয়েছে';btn.textContent='লোগো বদলান';
+    }catch(e){
+      pv.classList.remove('up');pv.textContent='+';st.textContent='আপলোড হয়নি, আবার চেষ্টা করুন';
+    }finally{delete f.dataset.busy;btn.disabled=false;file.value=''}
+  });
+}
+
+/* লম্বা ফর্মকে ধাপে ধাপে দেখানো: প্রতিটি ধাপ ঠিক না হলে পরেরটায় যাওয়া যায় না */
+function wizard(f,R,groups,names){
+  const err=$('#err',f),sub=$('#sub',f);
+  const hs=$$(':scope > h3',f);if(hs.length<2||!err||!sub)return;
+  const steps=hs.map((h,i)=>{
+    const d=document.createElement('section');d.className='stp';h.before(d);
+    h.textContent='ধাপ '+bn(i+1)+'/'+bn(hs.length)+': '+h.textContent;
+    let n=h;
+    while(n&&n!==err&&!(n!==h&&n.tagName==='H3')){const nx=n.nextElementSibling;d.appendChild(n);n=nx}
+    return d;
+  });
+  const nav=document.createElement('div');nav.className='wnav';
+  const back=document.createElement('button');back.type='button';back.className='btn ghost';back.textContent='পেছনে';
+  const next=document.createElement('button');next.type='button';next.className='btn';next.textContent='পরের ধাপ';
+  nav.append(back,next,sub);err.after(nav);
+  let cur=0;
+  const show=(i,scroll=true)=>{
+    cur=i;steps.forEach((s,j)=>s.hidden=j!==i);
+    back.hidden=i===0;next.hidden=i===steps.length-1;sub.hidden=i!==steps.length-1;err.innerHTML='';
+    if(scroll)window.scrollTo({top:Math.max(0,f.getBoundingClientRect().top+scrollY-72),behavior:'smooth'});
+  };
+  next.addEventListener('click',()=>{
+    const miss=groups[cur].filter(ri=>{try{return !R[ri]()}catch{return true}});
+    if(miss.length){
+      err.innerHTML='<div class="msg bad">বাকি আছে: '+miss.map(ri=>esc(names[ri])).join(', ')+'</div>';
+      navigator.vibrate?.(30);err.scrollIntoView({block:'center',behavior:'smooth'});return;
+    }
+    show(cur+1);
+  });
+  back.addEventListener('click',()=>show(cur-1));
+  f.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&e.target.tagName==='INPUT'&&e.target.type!=='checkbox'&&cur<steps.length-1){e.preventDefault();next.click()}
+  });
+  show(0,false);
+}
+
+/* খসড়া অটোসেভ: ট্যাব বন্ধ বা রিফ্রেশ হলেও লেখা থাকবে */
+function draftBind(f,tag,ids){
+  const key=`nova:draft:${tag}:${offer?.id}:${user?.uid}`;
+  f.dataset.dk=key;
+  try{
+    const s=JSON.parse(localStorage.getItem(key)||'null');let n=0;
+    if(s)ids.forEach(id=>{
+      const el=$('#'+id,f),val=s[id];
+      if(!el||!val||el.value===val)return;
+      el.value=val;n++;
+      if(el.tagName==='SELECT'){const bx=el.nextElementSibling;if(bx?.classList.contains('chips'))$$('button',bx).forEach(b=>b.setAttribute('aria-pressed',String(b.textContent===val)))}
+      el.dispatchEvent(new Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));
+    });
+    if(n)toast('আগের লেখা খসড়া ফিরিয়ে আনা হয়েছে');
+  }catch{}
+  let t;
+  const save=()=>{clearTimeout(t);t=setTimeout(()=>{if(!f.dataset.dk)return;try{const o={};ids.forEach(id=>{o[id]=$('#'+id,f)?.value||''});localStorage.setItem(key,JSON.stringify(o))}catch{}},400)};
+  f.addEventListener('input',save);f.addEventListener('change',save);
+}
+const draftClear=f=>{try{localStorage.removeItem(f.dataset.dk)}catch{}f.dataset.dk=''};
+
+/* শেয়ার ও ক্যালেন্ডার রিমাইন্ডার */
+async function shareOffer(){
+  const data={title:offer.title,text:offer.title+' — ফ্রি অ্যান্ড্রয়েড অ্যাপ অফার',url:location.href.split('#')[0]};
+  try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(data.url);toast('লিংক কপি হয়েছে')}}
+  catch(e){if(e.name!=='AbortError')toast('শেয়ার হয়নি')}
+}
+function addToCalendar(o,kind='draw'){
+  const K=kind==='details'
+    ?{t:Math.max(Date.now()+60000,o.detailsEnd-86400000),s:' — তথ্য জমার শেষ ২৪ ঘণ্টা',d:'তথ্য জমা দিন'}
+    :{t:o.drawDate,s:' — র‍্যান্ডম বাছাই',d:'বাছাই শুরু হচ্ছে'};
+  const z=ms=>new Date(ms).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const esc2=s=>String(s).replace(/[\\,;]/g,'\\$&').replace(/\n/g,'\\n');
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//HafijulNovaLabs//Offer//BN','BEGIN:VEVENT',
+    `UID:${o.id}@hafijulnovalabs`,`DTSTAMP:${z(Date.now())}`,`DTSTART:${z(K.t)}`,`DTEND:${z(K.t+1800000)}`,
+    'SUMMARY:'+esc2(o.title+K.s),'DESCRIPTION:'+esc2('ফলাফল দেখতে এই লিংকে ঢুকুন: '+location.href.split('#')[0]),
+    'BEGIN:VALARM','TRIGGER:-PT15M','ACTION:DISPLAY','DESCRIPTION:'+esc2(K.d),'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const l=document.createElement('a');l.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));l.download=kind+'-reminder.ics';l.click();
+  toast('রিমাইন্ডার ফাইল নামানো হয়েছে');
 }
 
 /* ভাসমান আবেদন বাটন (হিরো বাটন স্ক্রলে হারিয়ে গেলে) */
@@ -370,14 +769,17 @@ async function renderPublic(){
   const a=snap.data();
   if(!offer.drawn){
     app.innerHTML=html+`<div class="card"><div class="ok-ic" aria-hidden="true">✓</div><h2>আপনার আবেদন জমা হয়েছে</h2><div class="msg ok">বাছাইয়ের তারিখ: ${fmt(offer.drawDate)}। ফলাফল আপনার Gmail-এ জানানো হবে এবং এই লিংকেও দেখা যাবে।</div>
-    <dl class="det" style="border:0;padding:0"><dt>অ্যাপের নাম</dt><dd>${esc(a.appName)}</dd><dt>কী করবে</dt><dd>${esc(a.appPurpose)}</dd></dl></div>`;return;
+    <dl class="det" style="border:0;padding:0"><dt>অ্যাপের নাম</dt><dd>${esc(a.appName)}</dd><dt>কী করবে</dt><dd>${esc(a.appPurpose)}</dd></dl>
+    <div class="acts"><button class="btn sm gold" id="cal" type="button">বাছাইয়ের রিমাইন্ডার</button><button class="btn sm ghost" id="shr" type="button">বন্ধুকে জানান</button></div></div>`;
+    $('#cal').addEventListener('click',()=>addToCalendar(offer));$('#shr').addEventListener('click',shareOffer);return;
   }
   if(!a.selected){
-    app.innerHTML=html+'<div class="card"><h2>এবার সুযোগ হয়নি</h2><p class="mut">আবেদনের জন্য ধন্যবাদ। পরের অফারে আবার চেষ্টা করুন।</p></div>';return;
+    app.innerHTML=html+'<div class="card"><h2>এবার সুযোগ হয়নি</h2><p class="mut">আবেদনের জন্য ধন্যবাদ। পরের অফারে আবার চেষ্টা করুন।</p><div class="acts"><button class="btn sm ghost" id="shr" type="button">বন্ধুকে জানান</button></div></div>';
+    $('#shr').addEventListener('click',shareOffer);return;
   }
   if(a.workStatus==='info_pending'){
     if(now>offer.detailsEnd){app.innerHTML=html+'<div class="card"><h2>তথ্য জমার সময় শেষ</h2><p class="mut">নির্ধারিত সময়ে তথ্য জমা না হওয়ায় এখন আর জমা নেওয়া যাচ্ছে না। কিছু বলার থাকলে সরাসরি যোগাযোগ করুন।</p></div>';return}
-    app.innerHTML=html+`<section class="congrats" id="cg"><b>অভিনন্দন! আপনি নির্বাচিত হয়েছেন।</b><p>নিচের ফর্ম ${fmt(offer.detailsEnd)}-এর মধ্যে জমা দিন।</p></section>`+step2Html(a);bindStep2(ref,a);burst($('#cg'));return;
+    app.innerHTML=html+`<section class="congrats" id="cg"><b>অভিনন্দন! আপনি নির্বাচিত হয়েছেন।</b><p>নিচের ফর্ম ${fmt(offer.detailsEnd)}-এর মধ্যে জমা দিন।</p><div class="cd-l">তথ্য জমার সময় বাকি</div><div class="cd" id="cd" role="timer" data-end="${offer.detailsEnd}">${cdHtml(offer.detailsEnd)}</div></section>`+step2Html(a);bindStep2(ref,a);burst($('#cg'));return;
   }
   app.innerHTML=html+`<div class="card"><h2>আপনার অ্যাপ: ${esc(a.appName)}</h2><p><span class="pill ${a.workStatus==='delivered'?'ok':'g'}">${STATUS[a.workStatus]||a.workStatus}</span></p><p class="mut" style="margin-top:10px">${a.workStatus==='delivered'?'আপনার অ্যাপ ডেলিভারি হয়েছে।':'আপনার তথ্য জমা হয়েছে। কাজের অগ্রগতি এখানে দেখতে পাবেন।'}</p></div>`;
 }
@@ -417,12 +819,15 @@ function bindStep1(ref){
   });
   $('#appType').addEventListener('change',e=>{$('#otherBox').style.display=e.target.value==='অন্যান্য'?'block':'none'});
   ['appType','needsInternet','usedFor'].forEach(id=>chipify(id,f));
-  progress(f,[
+  const R=[
     ()=>v('appName').length>=3,()=>v('appPurpose').length>=100,
     ()=>v('ft1').length>=20,()=>v('ft2').length>=20,()=>v('ft3').length>=20,
     ()=>v('targetUsers').length>=50,()=>!!v('appType'),()=>!!v('needsInternet'),()=>!!v('usedFor'),
     ()=>$('#c1').checked&&$('#c2').checked&&$('#c3').checked
-  ]);
+  ];
+  progress(f,R);
+  wizard(f,R,[[0,1],[2,3,4,5],[6,7,8],[9]],['অ্যাপের নাম','অ্যাপ কী করবে (১০০ অক্ষর)','ফিচার ১','ফিচার ২','ফিচার ৩','কার জন্য দরকার','অ্যাপের ধরন','ইন্টারনেট','অ্যাপ কার জন্য','তিনটি সম্মতি']);
+  draftBind(f,'s1',['appName','appPurpose','ft1','ft2','ft3','targetUsers','appType','appTypeOther','needsInternet','usedFor','fbLink']);
   f.addEventListener('submit',async e=>{
     e.preventDefault();
     const er=[];const L=(id,n,name)=>{if(v(id).length<n)er.push(`${name}: আরও ${n-v(id).length} অক্ষর লিখুন`)};
@@ -442,7 +847,7 @@ function bindStep1(ref){
         appName:v('appName'),appPurpose:v('appPurpose'),feature1:v('ft1'),feature2:v('ft2'),feature3:v('ft3'),targetUsers:v('targetUsers'),
         appType:v('appType'),appTypeOther:v('appType')==='অন্যান্য'?v('appTypeOther'):'',needsInternet:v('needsInternet'),usedFor:v('usedFor'),fbLink:v('fbLink'),
         agreed:true,selected:false,waitlist:false,workStatus:'applied',createdAt:serverTimestamp()});
-      toast('আবেদন জমা হয়েছে');window.scrollTo({top:0,behavior:'smooth'});renderPublic();
+      draftClear(f);toast('আবেদন জমা হয়েছে');window.scrollTo({top:0,behavior:'smooth'});renderPublic();
     }catch(x){$('#sub').disabled=false;$('#err').innerHTML='<div class="msg bad">জমা হয়নি ('+esc(x.code||x.message)+')। আপনি আগে আবেদন করে থাকলে আবার করা যাবে না।</div>'}
   });
 }
@@ -471,6 +876,9 @@ function step2Html(a){
   <label for="theme">থিম</label><select id="theme"><option>Light</option><option>Dark</option><option>দুটোই</option></select>
   <label for="ref">রেফারেন্স অ্যাপ বা লিংক <small>(ঐচ্ছিক)</small></label><input type="text" id="ref" maxlength="300">
   <label for="icon">আইকনের ধারণা</label><input type="text" id="icon" maxlength="200" data-min="5">
+  <label>অ্যাপের লোগো <small>(ঐচ্ছিক, PNG বা JPG)</small></label>
+  <div class="logo-up"><div class="logo-pv" id="lgPv" aria-hidden="true">+</div><div><input type="file" id="lgFile" accept="image/*" hidden><button type="button" class="btn ghost sm" id="lgBtn">লোগো বেছে নিন</button><div class="mut" id="lgSt" style="margin-top:4px">বর্গাকার ছবি সবচেয়ে ভালো</div></div></div>
+  <input type="hidden" id="logoUrl">
   <label for="ui">ইন্টারফেসের ধরন</label><select id="ui"><option>সিম্পল</option><option>কার্ডভিত্তিক</option><option>ফুল-স্ক্রিন</option></select>
   <h3>ঘ. নিশ্চিতকরণ</h3>
   <label class="chk"><input type="checkbox" id="k1"><span>দেওয়া তথ্য সঠিক।</span></label>
@@ -486,16 +894,21 @@ function bindStep2(ref,a){
   ['ctime','net2','login2','lang','theme','ui'].forEach(id=>{const s=$('#'+id,f);if(s&&s.options.length<=4)chipify(id,f)});
   /* চিপে প্রথম অপশন আগে থেকেই বাছাই দেখানো */
   ['ctime','net2','login2','lang','theme','ui'].forEach(id=>{const s=$('#'+id,f);const b=s?.nextElementSibling?.querySelector('button');if(b)b.setAttribute('aria-pressed','true')});
-  progress(f,[
+  bindLogo(f);
+  const R=[
     ()=>v('fullName').length>=3,()=>/^(\+?88)?01[3-9]\d{8}$/.test(v('wa').replace(/[\s-]/g,'')),
     ()=>v('finalName').length>=3,()=>v('desc').length>=200,
     ()=>$$('.sn',sc).filter(i=>i.value.trim()).length>=2,
     ()=>v('fd0').length>=50,()=>v('fd1').length>=50,()=>v('fd2').length>=50,
     ()=>v('dataInfo').length>=20,()=>!!v('color'),()=>v('icon').length>=5,
     ()=>$('#k1').checked&&$('#k2').checked&&$('#k3').checked
-  ]);
+  ];
+  progress(f,R);
+  wizard(f,R,[[0,1],[2,3,4,5,6,7,8],[9,10],[11]],['পুরো নাম','WhatsApp নম্বর','অ্যাপের নাম','বিস্তারিত বর্ণনা (২০০ অক্ষর)','কমপক্ষে ২টি স্ক্রিন','ফিচার ১ বিবরণ','ফিচার ২ বিবরণ','ফিচার ৩ বিবরণ','ডেটা','প্রধান রঙ','আইকনের ধারণা','তিনটি নিশ্চিতকরণ']);
+  draftBind(f,'s2',['fullName','wa','alt','ctime','finalName','desc','fd0','fd1','fd2','dataInfo','net2','login2','lang','color','theme','ref','icon','ui']);
   f.addEventListener('submit',async e=>{
     e.preventDefault();
+    if(f.dataset.busy){toast('লোগো আপলোড শেষ হওয়া পর্যন্ত অপেক্ষা করুন');return}
     const er=[],L=(id,n,name)=>{if(v(id).length<n)er.push(`${name}: আরও ${n-v(id).length} অক্ষর লিখুন`)};
     L('fullName',3,'পুরো নাম');L('finalName',3,'অ্যাপের নাম');L('desc',200,'বিস্তারিত বর্ণনা');L('fd0',50,'ফিচার ১');L('fd1',50,'ফিচার ২');L('fd2',50,'ফিচার ৩');L('dataInfo',20,'ডেটা');L('icon',5,'আইকনের ধারণা');
     if(!/^(\+?88)?01[3-9]\d{8}$/.test(v('wa').replace(/[\s-]/g,'')))er.push('WhatsApp নম্বর সঠিক দিন (যেমন 01XXXXXXXXX)');
@@ -507,9 +920,9 @@ function bindStep2(ref,a){
     $('#sub').disabled=true;
     try{
       await updateDoc(ref,{step2:{fullName:v('fullName'),whatsapp:v('wa'),altContact:v('alt'),contactTime:v('ctime'),finalName:v('finalName'),description:v('desc'),screens,
-        featureDetails:[v('fd0'),v('fd1'),v('fd2')],dataInfo:v('dataInfo'),needsInternet:v('net2'),needsLogin:v('login2'),language:v('lang'),color:v('color'),theme:v('theme'),refLink:v('ref'),iconIdea:v('icon'),uiStyle:v('ui')},
+        featureDetails:[v('fd0'),v('fd1'),v('fd2')],dataInfo:v('dataInfo'),needsInternet:v('net2'),needsLogin:v('login2'),language:v('lang'),color:v('color'),theme:v('theme'),refLink:v('ref'),iconIdea:v('icon'),uiStyle:v('ui'),logoUrl:v('logoUrl')},
         step2At:serverTimestamp(),workStatus:'info_submitted'});
-      toast('তথ্য জমা হয়েছে');window.scrollTo({top:0,behavior:'smooth'});renderPublic();
+      draftClear(f);toast('তথ্য জমা হয়েছে');window.scrollTo({top:0,behavior:'smooth'});renderPublic();
     }catch(x){$('#sub').disabled=false;$('#err').innerHTML='<div class="msg bad">জমা হয়নি ('+esc(x.code||x.message)+')। সময় শেষ হয়ে থাকতে পারে।</div>'}
   });
 }
@@ -538,13 +951,20 @@ async function loadApps(){
 }
 const curOffer=()=>adm.offers.find(o=>o.id===adm.cur);
 
+function statsHtml(){
+  const A=adm.apps,S=A.filter(a=>a.selected);
+  const c=[[`${A.length}`,'মোট আবেদন',1],[`${S.length}`,'নির্বাচিত'],
+    [`${S.filter(a=>a.workStatus!=='info_pending').length} / ${S.length}`,'তথ্য জমা'],
+    [`${S.filter(a=>a.workStatus==='delivered').length} / ${S.length}`,'ডেলিভারি']];
+  return `<div class="stats">${c.map(([n,l,h])=>`<div class="stat${h?' hi':''}"><b>${n.replace(/\d+/g,m=>bn(m))}</b><span>${l}</span></div>`).join('')}</div>`;
+}
 async function drawAdmin(){
   const app=$('#app');
   await loadApps();
   const o=curOffer();
   app.innerHTML=`<div class="card"><div class="row"><select id="sel" class="grow">${adm.offers.map(x=>`<option value="${x.id}" ${x.id===adm.cur?'selected':''}>${esc(x.title)} (${x.status==='open'?'চালু':x.status==='closed'?'বন্ধ':'খসড়া'})</option>`).join('')||'<option>কোনো অফার নেই</option>'}</select>
   <button class="btn sm" id="new">+ নতুন অফার</button></div></div>
-  <div class="tabs">${[['offer','অফার'],['apps','আবেদন ('+adm.apps.length+')'],['draw','বাছাই ও মেইল']].map(([k,t])=>`<button data-t="${k}" class="${adm.tab===k?'on':''}">${t}</button>`).join('')}</div><div id="pane"></div>`;
+  ${o?statsHtml():''}<div class="tabs">${[['offer','অফার'],['apps','আবেদন ('+adm.apps.length+')'],['draw','বাছাই ও মেইল']].map(([k,t])=>`<button data-t="${k}" class="${adm.tab===k?'on':''}">${t}</button>`).join('')}</div><div id="pane"></div>`;
   $('#sel').addEventListener('change',e=>{adm.cur=e.target.value;drawAdmin()});
   $('#new').addEventListener('click',()=>{adm.cur=null;adm.tab='offer';drawAdmin()});
   $$('.tabs button').forEach(b=>b.addEventListener('click',()=>{adm.tab=b.dataset.t;drawAdmin()}));
@@ -588,7 +1008,8 @@ function dl(a){
   const rows=(pairs)=>pairs.filter(([,x])=>x!==undefined&&x!=='').map(([k,x])=>`<dt>${k}</dt><dd>${esc(x)}</dd>`).join('');
   const s2=a.step2;
   return `<dl>${rows([['Gmail',a.email],['অ্যাপের নাম',a.appName],['কী করবে',a.appPurpose],['ফিচার ১',a.feature1],['ফিচার ২',a.feature2],['ফিচার ৩',a.feature3],['কার জন্য',a.targetUsers],['ধরন',a.appType+(a.appTypeOther?' — '+a.appTypeOther:'')],['ইন্টারনেট',a.needsInternet],['কার জন্য ব্যবহার',a.usedFor],['ফেসবুক',a.fbLink]])}</dl>
-  ${s2?`<h3>ধাপ ২ তথ্য</h3><dl>${rows([['পুরো নাম',s2.fullName],['WhatsApp',s2.whatsapp],['বিকল্প',s2.altContact],['যোগাযোগের সময়',s2.contactTime],['চূড়ান্ত নাম',s2.finalName],['বর্ণনা',s2.description],['স্ক্রিন',(s2.screens||[]).map(x=>x.name+(x.desc?' — '+x.desc:'')).join('\n')],['ফিচার বিস্তারিত',(s2.featureDetails||[]).map((x,i)=>(i+1)+'. '+x).join('\n\n')],['ডেটা',s2.dataInfo],['ইন্টারনেট',s2.needsInternet],['লগইন',s2.needsLogin],['ভাষা',s2.language],['রঙ',s2.color],['থিম',s2.theme],['রেফারেন্স',s2.refLink],['আইকন',s2.iconIdea],['UI',s2.uiStyle]])}</dl>
+  ${s2?`<h3>ধাপ ২ তথ্য</h3><dl>${rows([['পুরো নাম',s2.fullName],['WhatsApp',s2.whatsapp],['বিকল্প',s2.altContact],['যোগাযোগের সময়',s2.contactTime],['চূড়ান্ত নাম',s2.finalName],['বর্ণনা',s2.description],['স্ক্রিন',(s2.screens||[]).map(x=>x.name+(x.desc?' — '+x.desc:'')).join('\n')],['ফিচার বিস্তারিত',(s2.featureDetails||[]).map((x,i)=>(i+1)+'. '+x).join('\n\n')],['ডেটা',s2.dataInfo],['ইন্টারনেট',s2.needsInternet],['লগইন',s2.needsLogin],['ভাষা',s2.language],['রঙ',s2.color],['থিম',s2.theme],['রেফারেন্স',s2.refLink],['আইকন',s2.iconIdea],['UI',s2.uiStyle],['লোগো লিংক',s2.logoUrl]])}</dl>
+  ${s2.logoUrl?`<div style="margin-top:10px"><a href="${esc(s2.logoUrl)}" target="_blank" rel="noopener"><img src="${esc(s2.logoUrl)}" alt="লোগো" style="width:76px;height:76px;border-radius:20px;object-fit:contain;background:#eee"></a></div>`:''}
   <button class="btn sm ghost" data-copy="${a.id}">তথ্য কপি করুন</button>`:''}`;
 }
 function paneApps(o){
@@ -661,6 +1082,7 @@ function paneDraw(o){
 /* ================= রাউটার ================= */
 function route(){renderWho();(location.hash==='#admin'?renderAdmin:renderPublic)()}
 window.addEventListener('hashchange',route);
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
 onAuthStateChanged(auth,u=>{user=u;isAdmin=!!u&&u.emailVerified&&ADMIN_EMAILS.includes((u.email||'').toLowerCase());route()});
 </script>
 </body>
